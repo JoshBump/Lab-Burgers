@@ -6,13 +6,17 @@ public class AdjacencyMatrixexamp {
     static int numofVertices;
 
     public static void main(String[] args) {
-        numofVertices = 4;//hard-coded number of vertices
+        numofVertices = 6;//hard-coded number of vertices
 
         mat = new int[numofVertices][numofVertices];
         //hard-coded boolean value for connected vertices
         mat[0][1] = 1;
         mat[1][2] = 1;
         mat[2][3] = 1;
+        mat[3][1] = 1;
+
+        //Prints overall statemet
+        System.out.println("Here is the current adjacency matrix.");
         //Prints Column labels
         System.out.print("  ");
         for(int i = 0; i < numofVertices; i++){

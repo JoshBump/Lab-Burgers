@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class game {
     public static void main(String[] args) {
         char[][] board = initializeBoard(7, 7);
-       int playerRow = 3; // Initial player position row
-       int playerCol = 3; // Initial player position column
+       int playerRow = 0; // Initial player position row
+       int playerCol = 0; // Initial player position column
 
         Scanner scanner = new Scanner(System.in);
 
@@ -17,7 +17,7 @@ public class game {
             char move = scanner.next().toUpperCase().charAt(0);
 
             if (move == 'Q') {
-                System.out.println("Thanks for playing!");
+                System.out.println("Turn is done");
                 break;
             }
 
@@ -53,7 +53,7 @@ public class game {
                 board[i][j] = '.';
             }
         }
-        board[numRows / 2][numCols / 2] = 'P';
+        board[0][0] = 'P';
         return board;
     }
 

@@ -6,7 +6,10 @@ public class TileTest {
             board.CreateTile(i,'i','u',i);
         }
         board.printTiles();
-        board.SlideTileUp(hold,0);
+        hold = board.SlideTileUp(hold,0);
+        hold = board.SlideTileLeft(hold,6);
+        hold = board.SlideTileDown(hold,6);
+        hold = board.SlideTileRight(hold,0);
         board.printTiles();
     }
 }

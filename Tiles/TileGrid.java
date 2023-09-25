@@ -17,7 +17,7 @@ public class TileGrid {
     public Tile SlideTileLeft(Tile tileIn, int row){
         Tile tileOut;
         tileOut = tileMap[row*SIZE];
-        for(int i=0;i<SIZE-2;i++){
+        for(int i=0;i<SIZE-1;i++){
             tileMap [row*SIZE+i] = tileMap [row*SIZE+i+1];
         }
         tileMap [row*SIZE+SIZE-1] = tileIn;
@@ -27,8 +27,8 @@ public class TileGrid {
     public Tile SlideTileRight(Tile tileIn, int row){
         Tile tileOut;
         tileOut = tileMap[row*SIZE+SIZE-1];
-        for(int i=SIZE-2;i>0;i--){
-            tileMap [row*SIZE+i+1] = tileMap [row*SIZE+i];
+        for(int i=SIZE-1;i>0;i--){
+            tileMap [row*SIZE+i] = tileMap [row*SIZE+i-1];
         }
         tileMap [row*SIZE] = tileIn;
         return tileOut;
@@ -37,18 +37,18 @@ public class TileGrid {
     public Tile SlideTileUp(Tile tileIn, int col){
         Tile tileOut;
         tileOut = tileMap[col];
-        for(int i=0;i<SIZE-2;i++){
+        for(int i=0;i<SIZE-1;i++){
             tileMap [col+SIZE*i] = tileMap [col+SIZE*(i+1)];
         }
         tileMap [col+SIZE*(SIZE-1)] = tileIn;
         return tileOut;
     }
-
+//
     public Tile SlideTileDown(Tile tileIn, int col){
         Tile tileOut;
         tileOut = tileMap[col+SIZE*(SIZE-1)];
-        for(int i=SIZE-2;i>0;i++){
-            tileMap [col+SIZE*(i+1)] = tileMap [col+SIZE*i];
+        for(int i=SIZE-1;i>0;i--){
+            tileMap [col+SIZE*i] = tileMap [col+SIZE*(i-1)];
         }
         tileMap [col] = tileIn;
         return tileOut;

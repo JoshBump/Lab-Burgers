@@ -30,6 +30,9 @@ public class GraphicsLab {
     //Image that goes into the main tile
     private BufferedImage Img50;
 
+    //Variables used to adjust what tile's height and length will be
+    private int X=75,Y=75;
+
     //Class called GraphicsLab which will contain all the important code
     //and logic for displaying images,tiles, and text
     public GraphicsLab() {
@@ -39,7 +42,7 @@ public class GraphicsLab {
         //Creating function for the program to close if the window closes
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Setting the size of the frame
-        frame.setSize(900, 750);
+        frame.setSize(1300, 750);
         //Setting layout style of frame
         //null allows for absolute positioning
         frame.setLayout(null);
@@ -842,64 +845,83 @@ public class GraphicsLab {
         {
             e.printStackTrace();
         }
+        //End of grid tiles
+        //Rotated Tile
+        TileMain = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(Img50, 0, 0, null);
+            }
+        };
+        try
+        {
+            Img50 = ImageIO.read(new File("TestFrog.jpg"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
      //Code for setting bounds of tiles and inserting them
         //(position X, position Y,Image length X, image length Y)
         //Row 1
-        Tile1.setBounds(100,0,100,100);
-        Tile2.setBounds(200,0,100,100);
-        Tile3.setBounds(300,0,100,100);
-        Tile4.setBounds(400,0,100,100);
-        Tile5.setBounds(500,0,100,100);
-        Tile6.setBounds(600,0,100,100);
-        Tile7.setBounds(700,0,100,100);
+        Tile1.setBounds(100,75,X,Y);
+        Tile2.setBounds(175,75,X,Y);
+        Tile3.setBounds(250,75,X,Y);
+        Tile4.setBounds(325,75,X,Y);
+        Tile5.setBounds(400,75,X,Y);
+        Tile6.setBounds(475,75,X,Y);
+        Tile7.setBounds(550,75,X,Y);
         //Row 2
-        Tile8.setBounds(100,100,100,100);
-        Tile9.setBounds(200,100,100,100);
-        Tile10.setBounds(300,100,100,100);
-        Tile11.setBounds(400,100,100,100);
-        Tile12.setBounds(500,100,100,100);
-        Tile13.setBounds(600,100,100,100);
-        Tile14.setBounds(700,100,100,100);
+        Tile8.setBounds(100,150,X,Y);
+        Tile9.setBounds(175,150,X,Y);
+        Tile10.setBounds(250,150,X,Y);
+        Tile11.setBounds(325,150,X,Y);
+        Tile12.setBounds(400,150,X,Y);
+        Tile13.setBounds(475,150,X,Y);
+        Tile14.setBounds(550,150,X,Y);
         //Row 3
-        Tile15.setBounds(100,200,100,100);
-        Tile16.setBounds(200,200,100,100);
-        Tile17.setBounds(300,200,100,100);
-        Tile18.setBounds(400,200,100,100);
-        Tile19.setBounds(500,200,100,100);
-        Tile20.setBounds(600,200,100,100);
-        Tile21.setBounds(700,200,100,100);
+        Tile15.setBounds(100,225,X,Y);
+        Tile16.setBounds(175,225,X,Y);
+        Tile17.setBounds(250,225,X,Y);
+        Tile18.setBounds(325,225,X,Y);
+        Tile19.setBounds(400,225,X,Y);
+        Tile20.setBounds(475,225,X,Y);
+        Tile21.setBounds(550,225,X,Y);
         //Row 4
-        Tile22.setBounds(100,300,100,100);
-        Tile23.setBounds(200,300,100,100);
-        Tile24.setBounds(300,300,100,100);
-        Tile25.setBounds(400,300,100,100);
-        Tile26.setBounds(500,300,100,100);
-        Tile27.setBounds(600,300,100,100);
-        Tile28.setBounds(700,300,100,100);
+        Tile22.setBounds(100,300,X,Y);
+        Tile23.setBounds(175,300,X,Y);
+        Tile24.setBounds(250,300,X,Y);
+        Tile25.setBounds(325,300,X,Y);
+        Tile26.setBounds(400,300,X,Y);
+        Tile27.setBounds(475,300,X,Y);
+        Tile28.setBounds(550,300,X,Y);
         //Row 5
-        Tile29.setBounds(100,400,100,100);
-        Tile30.setBounds(200,400,100,100);
-        Tile31.setBounds(300,400,100,100);
-        Tile32.setBounds(400,400,100,100);
-        Tile33.setBounds(500,400,100,100);
-        Tile34.setBounds(600,400,100,100);
-        Tile35.setBounds(700,400,100,100);
+        Tile29.setBounds(100,375,X,Y);
+        Tile30.setBounds(175,375,X,Y);
+        Tile31.setBounds(250,375,X,Y);
+        Tile32.setBounds(325,375,X,Y);
+        Tile33.setBounds(400,375,X,Y);
+        Tile34.setBounds(475,375,X,Y);
+        Tile35.setBounds(550,375,X,Y);
         //Row 6
-        Tile36.setBounds(100,500,100,100);
-        Tile37.setBounds(200,500,100,100);
-        Tile38.setBounds(300,500,100,100);
-        Tile39.setBounds(400,500,100,100);
-        Tile40.setBounds(500,500,100,100);
-        Tile41.setBounds(600,500,100,100);
-        Tile42.setBounds(700,500,100,100);
+        Tile36.setBounds(100,450,X,Y);
+        Tile37.setBounds(175,450,X,Y);
+        Tile38.setBounds(250,450,X,Y);
+        Tile39.setBounds(325,450,X,Y);
+        Tile40.setBounds(400,450,X,Y);
+        Tile41.setBounds(475,450,X,Y);
+        Tile42.setBounds(550,450,X,Y);
         //Row 7
-        Tile43.setBounds(100,600,100,100);
-        Tile44.setBounds(200,600,100,100);
-        Tile45.setBounds(300,600,100,100);
-        Tile46.setBounds(400,600,100,100);
-        Tile47.setBounds(500,600,100,100);
-        Tile48.setBounds(600,600,100,100);
-        Tile49.setBounds(700,600,100,100);
+        Tile43.setBounds(100,525,X,Y);
+        Tile44.setBounds(175,525,X,Y);
+        Tile45.setBounds(250,525,X,Y);
+        Tile46.setBounds(325,525,X,Y);
+        Tile47.setBounds(400,525,X,Y);
+        Tile48.setBounds(475,525,X,Y);
+        Tile49.setBounds(550,525,X,Y);
+        //Main rotating tile which is off to the side
+        TileMain.setBounds(1000, 300,X,Y);
         //Code for actually adding the tiles and such to the frame
         //Row 1
         frame.add(Tile1);
@@ -957,12 +979,58 @@ public class GraphicsLab {
         frame.add(Tile47);
         frame.add(Tile48);
         frame.add(Tile49);
+        //Adding the rotating tile to the screen
+        frame.add(TileMain);
+
+        //Creating Instruction Text
+        JLabel InstructSet1 = new JLabel("Text1");
+        JLabel InstructSet2 = new JLabel("Text1");
+
+        //Instruction text
+        InstructSet1.setText("Prompt1");
+        InstructSet2.setText("Prompt2rhg3ty5epotdhgfmkjdhbeygr3yt8q359uwyjurie5pnibhvrgervdt68H5YW69U0EO7IR-TLGUKPOJHIGUBYRF63haetjisymbncnmvklbhkgjsavbzxn m,lbnohiyturegwsbzxn");
+
+        //Setting bounds of the text on screen
+        InstructSet1.setBounds(1000,225,100,30);
+        InstructSet2.setBounds(1000,400,400,30);
+
+        //Adding text to frame
+        frame.add(InstructSet1);
+        frame.add(InstructSet2);
+
+
         //Setting the frame visible and everything inside of it
         frame.setVisible(true);
     }
 
 
-    public static void main(String[] args) {
-       new GraphicsLab();
+    public static void main(String[] args)
+    {
+        new GraphicsLab();
     }
+
+    //Class to be called for rotating image
+    private BufferedImage rotateImage(BufferedImage image, double degrees) {
+        double radians = Math.toRadians(degrees);
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int newWidth = (int) Math.floor(width * cos + height * sin);
+        int newHeight = (int) Math.floor(height * cos + width * sin);
+
+
+
+
+        BufferedImage rotated = new BufferedImage(newWidth, newHeight, image.getType());
+        Graphics2D g2d = rotated.createGraphics();
+        g2d.translate((newWidth - width) / 2, (newHeight - height) / 2);
+        g2d.rotate(radians, width / 2, height / 2);
+        g2d.drawRenderedImage(image, null);
+        g2d.dispose();
+
+        return rotated;
+    }
+
+
 }

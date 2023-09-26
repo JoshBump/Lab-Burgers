@@ -14,44 +14,47 @@ public class TileGrid {
         return;
     }
 
-    public Tile SlideTileLeft(Tile tileIn, int row){
-        Tile tileOut;
-        tileOut = tileMap[row*SIZE];
+    public void SlideTileLeft(int row){
+        Tile hold;
+        hold = tileMap[49];
+        tileMap[49] = tileMap[row*SIZE];
         for(int i=0;i<SIZE-1;i++){
             tileMap [row*SIZE+i] = tileMap [row*SIZE+i+1];
         }
-        tileMap [row*SIZE+SIZE-1] = tileIn;
-        return tileOut;
+        tileMap [row*SIZE+SIZE-1] = hold;
+        return;
     }
 
-    public Tile SlideTileRight(Tile tileIn, int row){
-        Tile tileOut;
-        tileOut = tileMap[row*SIZE+SIZE-1];
+    public void SlideTileRight(int row){
+        Tile hold;
+        hold = tileMap[49];
+        tileMap[49] = tileMap[row*SIZE+SIZE-1];
         for(int i=SIZE-1;i>0;i--){
             tileMap [row*SIZE+i] = tileMap [row*SIZE+i-1];
         }
-        tileMap [row*SIZE] = tileIn;
-        return tileOut;
+        tileMap [row*SIZE] = hold;
+        return;
     }
 
-    public Tile SlideTileUp(Tile tileIn, int col){
-        Tile tileOut;
-        tileOut = tileMap[col];
+    public void SlideTileUp(int col){
+        Tile hold;
+        hold = tileMap[49];
+        tileMap[49] = tileMap[col];
         for(int i=0;i<SIZE-1;i++){
             tileMap [col+SIZE*i] = tileMap [col+SIZE*(i+1)];
         }
-        tileMap [col+SIZE*(SIZE-1)] = tileIn;
-        return tileOut;
+        tileMap [col+SIZE*(SIZE-1)] = hold;
+        return;
     }
-//
-    public Tile SlideTileDown(Tile tileIn, int col){
-        Tile tileOut;
-        tileOut = tileMap[col+SIZE*(SIZE-1)];
+
+    public void SlideTileDown( int col){
+        Tile hold = tileMap[49];
+        tileMap[49] = tileMap[col+SIZE*(SIZE-1)];
         for(int i=SIZE-1;i>0;i--){
             tileMap [col+SIZE*i] = tileMap [col+SIZE*(i-1)];
         }
-        tileMap [col] = tileIn;
-        return tileOut;
+        tileMap [col] = hold;
+        return;
     }
 
     public void printTiles(){

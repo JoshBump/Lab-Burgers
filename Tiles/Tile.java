@@ -102,6 +102,16 @@ public class Tile{
         updateTile();
     }
 
+    //return tile rotation
+    public char getRotation(){
+        return rotation;
+    }
+
+    //return tile type
+    public char getType(){
+        return type;
+    }
+
     //return treasure ID
     public int getTreasure(){
         return treasure;

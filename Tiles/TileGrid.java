@@ -4,6 +4,10 @@ public class TileGrid {
     private static int SIZE = 7;
     private Tile [] tileMap = new Tile[SIZE*SIZE+1];
 
+    //TileGrid Constructor
+    //Automatically creates a board and randomizes all dynamic tiles
+    //Tiles 0-48 fill out the board
+    //Tile 49 is the spare tile, inserted into the board when sliding tiles
     public TileGrid(){
         Random rand = new Random();
         Tile [] tileDeck = new Tile[34];
@@ -13,18 +17,18 @@ public class TileGrid {
         tileMap[6] = new Tile ('l', 'd', 2);//treasure 2 is the player 2 starting square (Blue)
         tileMap[42] = new Tile ('l', 'u', 3);//treasure 3 is the player 3 starting square (Yellow)
         tileMap[48] = new Tile ('l', 'l', 4);//treasure 4 is the player 4 starting square (Green)
-        tileMap[2] = new Tile ('t', 'u', 5);//treasure 5 is the Skull
-        tileMap[4] = new Tile ('t', 'u', 6);//treasure 6 is the Sword
+        tileMap[2] = new Tile ('t', 'r', 5);//treasure 5 is the Skull
+        tileMap[4] = new Tile ('t', 'r', 6);//treasure 6 is the Sword
         tileMap[14] = new Tile ('t', 'u', 7);//treasure 7 is the Bag of Coins
         tileMap[16] = new Tile ('t', 'u', 8);//treasure 8 is the Key Ring
-        tileMap[18] = new Tile ('t', 'u', 9);//treasure 9 is the Emerald
-        tileMap[20] = new Tile ('t', 'u', 10);//treasure 10 is the Helmet
+        tileMap[18] = new Tile ('t', 'r', 9);//treasure 9 is the Emerald
+        tileMap[20] = new Tile ('t', 'd', 10);//treasure 10 is the Helmet
         tileMap[28] = new Tile ('t', 'u', 11);//treasure 11 is the Book
-        tileMap[30] = new Tile ('t', 'u', 12);//treasure 12 is the Crown
-        tileMap[32] = new Tile ('t', 'u', 13);//treasure 13 is the Chest
-        tileMap[34] = new Tile ('t', 'u', 14);//treasure 14 is the Candelabra
-        tileMap[44] = new Tile ('t', 'u', 15);//treasure 15 is the Map
-        tileMap[46] = new Tile ('t', 'u', 16);//treasure 16 is the Ring
+        tileMap[30] = new Tile ('t', 'l', 12);//treasure 12 is the Crown
+        tileMap[32] = new Tile ('t', 'd', 13);//treasure 13 is the Chest
+        tileMap[34] = new Tile ('t', 'd', 14);//treasure 14 is the Candelabra
+        tileMap[44] = new Tile ('t', 'l', 15);//treasure 15 is the Map
+        tileMap[46] = new Tile ('t', 'l', 16);//treasure 16 is the Ring
 
         //Create Dynamic Tiles
         //12 Treasure tiles, 6 L and 6 T
@@ -109,10 +113,10 @@ public class TileGrid {
         tileMap[45] = tileDeck[31];
         tileMap[47] = tileDeck[32];
         tileMap[49] = tileDeck[33];
-
     }
         
-
+    //Randomizee Rotation function
+    //Used in board initialization
     private static char randRot(){
         Random rand = new Random();
 
@@ -141,26 +145,37 @@ public class TileGrid {
         return rotation;
     }
 
+    //CreateTile function (obsolete)
+    //Used to create a new tile on the board at position X,Y
     public void CreateTile(int x, int y, char typ, char rot, int trs){
         tileMap[y*SIZE+x] = new Tile(typ,rot,trs);
         return;
     }
 
+    //CreateTile function (obsolete)
+    //Used to create a new tile on the board at the index position
     public void CreateTile(int pos, char typ, char rot, int trs){
         tileMap[pos] = new Tile(typ,rot,trs);
         return;
     }
 
+    //InsertTile function (obsolete)
+    //Used to insert an existing tile into the board at the index position
     public void InsertTile(int pos, Tile t){
         tileMap[pos] = t;
         return;
     }
 
+    //InsertTile function (obsolete)
+    //Used to insert an existing tile into the board at position X,Y
     public void InsertTile(int x, int y, Tile t){
         tileMap[y*SIZE+x] = t;
         return;
     }
 
+    //Slide Left function
+    //Inserts the spare tile at the right side of the board
+    //Slides all tiles in the row left
     public void SlideTileLeft(int row){
         Tile hold;
         hold = tileMap[49];
@@ -172,6 +187,9 @@ public class TileGrid {
         return;
     }
 
+    //Slide Right function
+    //Inserts the spare tile at the left side of the board
+    //Slides all tiles in the row right
     public void SlideTileRight(int row){
         Tile hold;
         hold = tileMap[49];
@@ -183,6 +201,9 @@ public class TileGrid {
         return;
     }
 
+    //Slide Up function
+    //Inserts the spare tile at the bottom of the board
+    //Slides all tiles in the collumn up
     public void SlideTileUp(int col){
         Tile hold;
         hold = tileMap[49];
@@ -194,6 +215,9 @@ public class TileGrid {
         return;
     }
 
+    //Slide Down function
+    //Inserts the spare tile at the top of the board
+    //Slides all tiles in the collumn down
     public void SlideTileDown( int col){
         Tile hold = tileMap[49];
         tileMap[49] = tileMap[col+SIZE*(SIZE-1)];
@@ -204,6 +228,9 @@ public class TileGrid {
         return;
     }
 
+    //Print function
+    //Prints the treasure indexes of all tiles in the board
+    //Used for initial testing
     public void printTiles(){
         for(int y=0;y<SIZE;y++){
             for(int x=0;x<SIZE;x++){
@@ -211,5 +238,20 @@ public class TileGrid {
             }
             System.out.println();
         }
+    }
+
+    //Rotation functions
+    //Rotates the spare tile
+    public void rotR(){
+        tileMap[49].rotateRight();
+        return;
+    }
+    public void rotL(){
+        tileMap[49].rotateLeft();
+        return;
+    }
+
+    public char getRotation(int pos){
+        return tileMap[pos].getRotation();
     }
 }

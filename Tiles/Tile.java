@@ -1,15 +1,15 @@
 public class Tile{
 
-    private char rotation,type;
-    private int treasure;
+    private char type;
+    private int rotation, treasure;
     private boolean[] connection = new boolean [4];
     //private String imageName;
 
     //Tile creation function
     //char typ assigns tile Type, must be 'i','l', or 't'
-    //char rot assigns tile Rotation, must be 'u','d','l', or 'r'
+    //char rot assigns tile Rotation, must be 0, 90, 180, or 270
     //int trs assigns treasure ID, assign ID 0 for no treasure, 1-4 for player starting positions, 5-28 for card treasures
-    public Tile(char typ,char rot, int trs){        
+    public Tile(char typ,int rot, int trs){        
         type = typ;
         rotation = rot;
         treasure = trs;
@@ -41,25 +41,25 @@ public class Tile{
                 break;
         }
         switch(this.rotation){
-            case 'u' :
+            case 0 :
                 connection[0] = con[0];
                 connection[1] = con[1];
                 connection[2] = con[2];
                 connection[3] = con[3];
                 break;
-            case 'r' :
+            case 90 :
                 connection[0] = con[3];
                 connection[1] = con[0];
                 connection[2] = con[1];
                 connection[3] = con[2];
                 break;
-            case 'd' :
+            case 180 :
                 connection[0] = con[2];
                 connection[1] = con[3];
                 connection[2] = con[0];
                 connection[3] = con[1];
                 break;
-            case 'l' :
+            case 270 :
                 connection[0] = con[1];
                 connection[1] = con[2];
                 connection[2] = con[3];
@@ -73,37 +73,23 @@ public class Tile{
     //rotates tile clockwise
     //calls update tile function
     public void rotateRight(){
-        switch(this.rotation){
-            case 'u' : rotation = 'r';
-                break;
-            case 'r' : rotation = 'd';
-                break;
-            case 'd' : rotation = 'l';
-                break;
-            case 'l' : rotation = 'u';
-                break;
-        }
+        rotation += 90;
+        if(rotation > 270)
+            rotation = 0;
         updateTile();
     }
 
     //rotates the tile counterclockwise
     //calls update tile function
     public void rotateLeft(){
-        switch(this.rotation){
-            case 'u' : rotation = 'l';
-                break;
-            case 'r' : rotation = 'u';
-                break;
-            case 'd' : rotation = 'r';
-                break;
-            case 'l' : rotation = 'd';
-                break;
-        }
+        rotation -= 90;
+        if(rotation < 0)
+            rotation = 270;
         updateTile();
     }
 
     //return tile rotation
-    public char getRotation(){
+    public int getRotation(){
         return rotation;
     }
 

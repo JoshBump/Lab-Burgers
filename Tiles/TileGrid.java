@@ -13,22 +13,22 @@ public class TileGrid {
         Tile [] tileDeck = new Tile[34];
 
         //Create and Assign Static Tiles
-        tileMap[0] = new Tile('l', 'r', 1);//treasure 1 is the player 1 starting square (Red)
-        tileMap[6] = new Tile ('l', 'd', 2);//treasure 2 is the player 2 starting square (Blue)
-        tileMap[42] = new Tile ('l', 'u', 3);//treasure 3 is the player 3 starting square (Yellow)
-        tileMap[48] = new Tile ('l', 'l', 4);//treasure 4 is the player 4 starting square (Green)
-        tileMap[2] = new Tile ('t', 'r', 5);//treasure 5 is the Skull
-        tileMap[4] = new Tile ('t', 'r', 6);//treasure 6 is the Sword
-        tileMap[14] = new Tile ('t', 'u', 7);//treasure 7 is the Bag of Coins
-        tileMap[16] = new Tile ('t', 'u', 8);//treasure 8 is the Key Ring
-        tileMap[18] = new Tile ('t', 'r', 9);//treasure 9 is the Emerald
-        tileMap[20] = new Tile ('t', 'd', 10);//treasure 10 is the Helmet
-        tileMap[28] = new Tile ('t', 'u', 11);//treasure 11 is the Book
-        tileMap[30] = new Tile ('t', 'l', 12);//treasure 12 is the Crown
-        tileMap[32] = new Tile ('t', 'd', 13);//treasure 13 is the Chest
-        tileMap[34] = new Tile ('t', 'd', 14);//treasure 14 is the Candelabra
-        tileMap[44] = new Tile ('t', 'l', 15);//treasure 15 is the Map
-        tileMap[46] = new Tile ('t', 'l', 16);//treasure 16 is the Ring
+        tileMap[0] = new Tile('l', 90, 1);//treasure 1 is the player 1 starting square (Red)
+        tileMap[6] = new Tile ('l', 180, 2);//treasure 2 is the player 2 starting square (Blue)
+        tileMap[42] = new Tile ('l', 180, 3);//treasure 3 is the player 3 starting square (Yellow)
+        tileMap[48] = new Tile ('l', 270, 4);//treasure 4 is the player 4 starting square (Green)
+        tileMap[2] = new Tile ('t', 90, 5);//treasure 5 is the Skull
+        tileMap[4] = new Tile ('t', 90, 6);//treasure 6 is the Sword
+        tileMap[14] = new Tile ('t', 0, 7);//treasure 7 is the Bag of Coins
+        tileMap[16] = new Tile ('t', 0, 8);//treasure 8 is the Key Ring
+        tileMap[18] = new Tile ('t', 90, 9);//treasure 9 is the Emerald
+        tileMap[20] = new Tile ('t', 180, 10);//treasure 10 is the Helmet
+        tileMap[28] = new Tile ('t', 0, 11);//treasure 11 is the Book
+        tileMap[30] = new Tile ('t', 270, 12);//treasure 12 is the Crown
+        tileMap[32] = new Tile ('t', 180, 13);//treasure 13 is the Chest
+        tileMap[34] = new Tile ('t', 180, 14);//treasure 14 is the Candelabra
+        tileMap[44] = new Tile ('t', 270, 15);//treasure 15 is the Map
+        tileMap[46] = new Tile ('t', 270, 16);//treasure 16 is the Ring
 
         //Create Dynamic Tiles
         //12 Treasure tiles, 6 L and 6 T
@@ -78,7 +78,7 @@ public class TileGrid {
             tileDeck[r] = hold;
         }
 
-        //Assign dynamic Tiles
+        //Assign dynamic Tiles to all sliding Tile positions
         tileMap[1] = tileDeck[0];
         tileMap[3] = tileDeck[1];
         tileMap[5] = tileDeck[2];
@@ -117,30 +117,30 @@ public class TileGrid {
         
     //Randomizee Rotation function
     //Used in board initialization
-    private static char randRot(){
+    private static int randRot(){
         Random rand = new Random();
 
-        char rotation;
+        int rotation;
         int r = rand.nextInt(4);
         switch(r%4){
             case 0:
-                rotation = 'u';
+                rotation = 0;
                 break;
             
             case 1:
-                rotation = 'r';
+                rotation = 90;
                 break;
 
             case 2:
-                rotation = 'd';
+                rotation = 180;
                 break;
 
             case 3:
-                rotation = 'l';
+                rotation = 270;
                 break;
 
             default:
-                rotation = 'u';
+                rotation = 0;
         }
         return rotation;
     }
@@ -153,14 +153,14 @@ public class TileGrid {
     }
 
     //CreateTile function (obsolete)
-    //Used to create a new tile on the board at the index position
+    //Used to create a new tile on the board at index position pos
     public void CreateTile(int pos, char typ, char rot, int trs){
         tileMap[pos] = new Tile(typ,rot,trs);
         return;
     }
 
     //InsertTile function (obsolete)
-    //Used to insert an existing tile into the board at the index position
+    //Used to insert an existing tile into the board at index position pos
     public void InsertTile(int pos, Tile t){
         tileMap[pos] = t;
         return;
@@ -251,7 +251,30 @@ public class TileGrid {
         return;
     }
 
-    public char getRotation(int pos){
+    //Get functions
+    //Return rotation/treasure of tile A
+    //Direct index and XY index accessible
+    public int getRotation(int pos){
         return tileMap[pos].getRotation();
+    }
+
+    public int getRotation(int x,int y){
+        return tileMap[x+SIZE*y].getRotation();
+    }
+
+    public int getTreasure(int pos){
+        return tileMap[pos].getTreasure();
+    }
+
+    public int getTreasure(int x,int y){
+        return tileMap[x+SIZE*y].getTreasure();
+    }
+
+    public char getType(int pos){
+        return tileMap[pos].getType();
+    }
+
+    public char getType(int x,int y){
+        return tileMap[x+SIZE*y].getType();
     }
 }

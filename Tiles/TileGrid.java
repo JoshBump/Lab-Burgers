@@ -277,4 +277,12 @@ public class TileGrid {
     public char getType(int x,int y){
         return tileMap[x+SIZE*y].getType();
     }
+
+    public Tile getTile(int x, int y){
+        return tileMap[x+SIZE*y];
+    }
+
+    public Tile getTile(int pos){
+        return tileMap[pos];
+    }
 }

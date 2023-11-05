@@ -1,13 +1,14 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class GraphicsLab {
     //Main frame the player can see and holds everything
-    private JFrame frame;
+    private static JFrame frame;
 
     //Panels that hold and rotate images for grid board
     //The tiles
@@ -29,6 +30,23 @@ public class GraphicsLab {
 
     //Image that goes into the main tile
     private static BufferedImage Img50;
+
+    //Panels that will hold col/ row indicators
+    //Which will tell the player which row and col the player can change
+
+    private static JButton Arrow1Button, Arrow2Button, Arrow3Button;
+    private static JButton Arrow4Button, Arrow5Button, Arrow6Button;
+    private static JButton Arrow7Button, Arrow8Button, Arrow9Button;
+    private static JButton Arrow10Button, Arrow11Button, Arrow12Button;
+
+    //Player
+    public static JPanel playerB;
+
+    public static BufferedImage BlueWiz;
+
+    //Player layer
+     public static JFrame Player;
+
 
     //Variables used to adjust what tile's height and length will be
     private int X=75,Y=75;
@@ -55,7 +73,12 @@ public class GraphicsLab {
 
         //Code for the images
         //Calling a function that assigns all the tiles what image they should be
-        TileGraphics(1);
+        //Loop makes it work and not return null / error
+        //Delete later
+        int i = 1;
+        for(i=1;i<=50;i++) {
+            TileGraphics(i);
+        }
 
      //Code for setting bounds of tiles and inserting them
         //(position X, position Y,Image length X, image length Y)
@@ -117,6 +140,11 @@ public class GraphicsLab {
         Tile49.setBounds(550,525,X,Y);
         //Main rotating tile which is off to the side
         TileMain.setBounds(1000, 300,X,Y);
+
+        //Creating and putting the images in the arrows
+        //As of 10/16 this is new and needs to be added to the main code
+        IndicatorsAdd();
+
         //Code for actually adding the tiles and such to the frame
         //Row 1
         frame.add(Tile1);
@@ -193,25 +221,32 @@ public class GraphicsLab {
         //Adding text to frame
         frame.add(InstructSet1);
         frame.add(InstructSet2);
+//Keeps play layer above board layer
+       frame.setFocusableWindowState(false);
 
         //Setting the frame visible and everything inside of it
         frame.setVisible(true);
-
+//PlayerPiece call AFTER board frame is consructed and made visible
+        GraphicsPlayerPiece();
     }
 
 //The main function
     //Creates and runs everything, mostly for figuring out what works and what doesnt
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws IOException {
         String W = "Tile_L (1).jpg";
         int deg = 270;
         //Graphics need a string which has the image name
         new GraphicsLab(W);
+
         //Rotating an image needs int for degrees
        rot(deg);
        TileRepaint();
+
+      // Indicate(10);
     }
 
+    //Will take the ID and Type from craig's tile class
+    //And give it a string which can be used in the Tile Graphics function
     String AssignTile(int ID, char Type)
     {
     String TileFname = "";
@@ -1176,6 +1211,511 @@ public class GraphicsLab {
         }
     }
 
+    //Function that will assign the images of the arrows
+    //As of 10/16 this is new and needs to be added to the main code
+
+    public void IndicatorsAdd()
+    {
+        //Three Arrows per side
+        ImageIcon D = new ImageIcon("ArrowDown.png");
+        ImageIcon R = new ImageIcon("ArrowLeft.png");
+        ImageIcon U = new ImageIcon("Arrow.png");
+        ImageIcon L = new ImageIcon("ArrowRight.png");
+        ImageIcon DB = new ImageIcon("ArrowDownBlack.png");
+        ImageIcon RB = new ImageIcon("ArrowLeftBlack.png");
+        ImageIcon UB = new ImageIcon("ArrowBlack.png");
+        ImageIcon LB = new ImageIcon("ArrowRightBlack.png");
+
+        Arrow1Button = new JButton(D);
+        Arrow2Button = new JButton(D);
+        Arrow3Button = new JButton(D);
+        //Right side
+        Arrow4Button = new JButton(R);
+        Arrow5Button = new JButton(R);
+        Arrow6Button = new JButton(R);
+        //Bottom
+        Arrow7Button = new JButton(U);
+        Arrow8Button = new JButton(U);
+        Arrow9Button = new JButton(U);
+        //Left
+        Arrow10Button = new JButton(L);
+        Arrow11Button = new JButton(L);
+        Arrow12Button = new JButton(L);
+        //Setting the bounds and adding the arrows to the frame
+        //Top Arrows
+        Arrow1Button.setBounds(175,0,X,Y);
+        Arrow2Button.setBounds(325,0,X,Y);
+        Arrow3Button.setBounds(475,0,X,Y);
+//Right arrows, Img called LeftArrows becuase they face left
+        Arrow4Button.setBounds(625,150,X,Y);
+        Arrow5Button.setBounds(625,300,X,Y);
+        Arrow6Button.setBounds(625,450,X,Y);
+        //Arrows on the bottom row
+        Arrow7Button.setBounds(175, 600,X,Y);
+        Arrow8Button.setBounds(325, 600,X,Y);
+        Arrow9Button.setBounds(475,600,X,Y);
+        //Arrows on the Left
+        Arrow10Button.setBounds(0,150,X,Y);
+        Arrow11Button.setBounds(0,300,X,Y);
+        Arrow12Button.setBounds(0,450,X,Y);
+        //Adding action listeners
+        //FILL WITH INPUTS AND ACTIONS THAT SHIFT TILES
+        Arrow1Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow2Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow3Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow4Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow5Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow6Button.addActionListener(new ActionListener() {
+            @Override
+
+        });
+        Arrow7Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow8Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow9Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow10Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow11Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        Arrow12Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        //Mouse Listeners now
+        Arrow1Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            Arrow1Button.setIcon(DB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            Arrow1Button.setIcon(D);
+            }
+        });
+        Arrow2Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow2Button.setIcon(DB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow2Button.setIcon(D);
+            }
+        });
+        Arrow3Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow3Button.setIcon(DB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow3Button.setIcon(D);
+            }
+        });
+        Arrow4Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow4Button.setIcon(RB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow4Button.setIcon(R);
+            }
+        });
+        Arrow5Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow5Button.setIcon(RB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow5Button.setIcon(R);
+            }
+        });
+        Arrow6Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow6Button.setIcon(RB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow6Button.setIcon(R);
+            }
+        });
+        Arrow7Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow7Button.setIcon(UB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow7Button.setIcon(U);
+            }
+        });
+        Arrow8Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow8Button.setIcon(UB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow8Button.setIcon(U);
+            }
+        });
+        Arrow9Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow9Button.setIcon(UB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow9Button.setIcon(U);
+            }
+        });
+        Arrow10Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow10Button.setIcon(LB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow10Button.setIcon(L);
+            }
+        });
+        Arrow11Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow11Button.setIcon(LB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow11Button.setIcon(L);
+            }
+        });
+        Arrow12Button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Arrow12Button.setIcon(LB);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Arrow12Button.setIcon(L);
+            }
+        });
+        //Adding arrows
+        frame.add(Arrow1Button);
+        frame.add(Arrow2Button);
+        frame.add(Arrow3Button);
+        frame.add(Arrow4Button);
+        frame.add(Arrow5Button);
+        frame.add(Arrow6Button);
+        frame.add(Arrow7Button);
+        frame.add(Arrow8Button);
+        frame.add(Arrow9Button);
+        frame.add(Arrow10Button);
+        frame.add(Arrow11Button);
+        frame.add(Arrow12Button);
+    }
+
+    //Player Piece
+    public static void GraphicsPlayerPiece(){
+        Player = new JFrame();
+        Player.setUndecorated(true);
+        Player.setAlwaysOnTop(true);
+        Player.setBounds(200,200,35,50);
+        playerB = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(BlueWiz, 0, 0, null);
+            }
+        };
+        try {
+            BlueWiz = ImageIO.read(new File("BluePLayer.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         playerB.setBounds(200,200,35,50);
+       Player.setBackground(new Color(0,0,0,0));
+        Player.add(playerB);
+        playerB.setBackground(new Color(0,0,0,0));
+        Player.setVisible(true);
+
+        //Mouse Listener
+        Player.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int xm = (int) b.getX();
+                int ym = (int) b.getY();
+                Player.setBounds(xm-15,ym-15,35,50);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+    }
+
+    
     //Variable to be called for rotating image
     //Will rotate the Main Tile's image the specified degree
     private static BufferedImage rotateImage(BufferedImage image, double degrees) {

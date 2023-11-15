@@ -2,13 +2,19 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
+
 
 public class GraphicsLab {
     //Main frame the player can see and holds everything
-    private static JFrame frame;
+    public static JFrame frame;
 
     //Panels that hold and rotate images for grid board
     //The tiles
@@ -34,10 +40,12 @@ public class GraphicsLab {
     //Panels that will hold col/ row indicators
     //Which will tell the player which row and col the player can change
 
-    private static JButton Arrow1Button, Arrow2Button, Arrow3Button;
-    private static JButton Arrow4Button, Arrow5Button, Arrow6Button;
-    private static JButton Arrow7Button, Arrow8Button, Arrow9Button;
-    private static JButton Arrow10Button, Arrow11Button, Arrow12Button;
+    public static JButton Arrow1Button, Arrow2Button, Arrow3Button;
+    public static JButton Arrow4Button, Arrow5Button, Arrow6Button;
+    public static JButton Arrow7Button, Arrow8Button, Arrow9Button;
+    public static JButton Arrow10Button, Arrow11Button, Arrow12Button;
+
+    public static ArrayList<BufferedImage> list = new ArrayList<BufferedImage>();
 
     //Player
     public static JPanel playerB;
@@ -46,6 +54,7 @@ public class GraphicsLab {
 
     //Player layer
      public static JFrame Player;
+    private static boolean check = false;
 
 
     //Variables used to adjust what tile's height and length will be
@@ -76,8 +85,9 @@ public class GraphicsLab {
         //Loop makes it work and not return null / error
         //Delete later
         int i = 1;
+      String Tilename = " ";
         for(i=1;i<=50;i++) {
-            TileGraphics(i);
+            TileGraphics(i, "TestFrog.jpg");
         }
 
      //Code for setting bounds of tiles and inserting them
@@ -233,13 +243,13 @@ public class GraphicsLab {
 //The main function
     //Creates and runs everything, mostly for figuring out what works and what doesnt
     public static void main(String[] args) throws IOException {
-        String W = "Tile_L (1).jpg";
+        String W = " ";
         int deg = 270;
         //Graphics need a string which has the image name
         new GraphicsLab(W);
 
         //Rotating an image needs int for degrees
-       rot(deg);
+       //rot(deg);
        TileRepaint();
 
       // Indicate(10);
@@ -247,133 +257,409 @@ public class GraphicsLab {
 
     //Will take the ID and Type from craig's tile class
     //And give it a string which can be used in the Tile Graphics function
-    String AssignTile(int ID, char Type)
-    {
-    String TileFname = "";
-    if(ID == 1)
-    {
-    TileFname = "Tile_L_Red (1).jpg";
-    }
-    else if (ID == 2)
-    {
-        TileFname = "Tile_L_Blue (1).jpg";
-    }
-    else if (ID == 3)
-    {
-        TileFname = "Tile_L_Yellow (1).jpg";
-    }
-    else if (ID == 4)
-    {
-        TileFname = "Tile_L_Green (1).jpg";
-    }
-    else if (ID == 5)
-    {
-        TileFname = "TestFrog.jpg";
-    }
-    else if (ID == 6)
-    {
-        TileFname = "Tile_T_Sword (1).jpg";
-    }
-    else if (ID == 7)
-    {
-        TileFname = "Tile_T_Coins (1).jpg";
-    }
-    else if (ID == 8)
-    {
-        TileFname = "Tile_T_Keys (1).jpg";
-    }
-    else if (ID == 9)
-    {
-        TileFname = "Tile_T_Emerald (1).jpg";
-    }
-    else if (ID == 10)
-    {
-        TileFname = "Tile_T_Knight (1).jpg";
-    }
-    else if (ID == 11)
-    {
-        TileFname = "Tile_T_Book (1).jpg";
-    }
-    else if (ID == 12)
-    {
-        TileFname = "Tile_T_Crown (1).jpg";
-    }
-    else if (ID == 13)
-    {
-        TileFname = "Tile_T_Chest (1).jpg";
-    }
-    else if (ID == 14)
-    {
-        TileFname = "Tile_T_Abra (1).jpg";
-    }
-    else if (ID == 15)
-    {
-        TileFname = "Tile_T_Map (1).jpg";
-    }
-    else if (ID == 16)
-    {
-        TileFname = "Tile_T_Ring (1).jpg";
-    }
-    else if (ID == 17)
-    {
-        TileFname = "Tile_L_Spider (1).jpg";
-    }
-    else if (ID == 18)
-    {
-        TileFname = "Tile_L_Rat (1).jpg";
-    }
-    else if (ID == 19)
-    {
-        TileFname = "Tile_L_Moth (1).jpg";
-    }
-    else if (ID == 20)
-    {
-        TileFname = "Tile_L_Beetle (1).jpg";
-    }
-    else if (ID == 21)
-    {
-        TileFname = "TestFrog.jpg";
-    }
-    else if (ID == 22)
-    {
-        TileFname = "Tile_L_Owl (1).jpg";
-    }
-    else if (ID == 23)
-    {
-        TileFname = "Tile_T_Bat (1).jpg";
-    }
-    else if (ID == 24)
-    {
-        TileFname = "Tile_T_Troll (1).jpg";
-    }
-    else if (ID == 25)
-    {
-        TileFname = "Tile_T_Ghost (1).jpg";
-    }
-    else if (ID == 26)
-    {
-        TileFname = "Tile_T_Genie (1).jpg";
-    }
-    else if (ID == 27)
-    {
-        TileFname = "Tile_T_Lady (1).jpg";
-    }
-    else if (ID == 28)
-    {
-        TileFname = "Tile_T_Dragon (1).jpg";
-    }
-    else if(ID == 0)
-    {
-        if(Type == 'l')
+    String AssignTile(int ID, char Type, int rot)
+    {System.getProperty("user.dir");
+       // rot = board.getRotation();
+        String TileFname = "";
+        if(ID == 1)
         {
-            TileFname = "Tile_L (1).jpg";
+            TileFname = "Tile_L_Red_0.jpg";
         }
-        else
+        else if (ID == 2)
         {
-            TileFname = "Tile_I (1).jpg";
+            TileFname = "Tile_L_Blue_0.jpg";
         }
-    }
-    return TileFname;
+        else if (ID == 3)
+        {
+            TileFname = "Tile_L_Yellow.jpg";
+        }
+        else if (ID == 4)
+        {
+            TileFname = "Tile_L_Green_0.jpg";
+        }
+        else if (ID == 5)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Skull_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Skull_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Skull_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Skull_270.jpg";
+            }
+        }
+        else if (ID == 6)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Sword_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Sword_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Sword_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Sword_270.jpg";
+            }
+        }
+        else if (ID == 7)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Coins_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Coins_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Coins_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Coins_270.jpg";
+            }
+        }
+        else if (ID == 8)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Keys_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Keys_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Keys_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Keys_270.jpg";
+            }
+        }
+        else if (ID == 9)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Emerald_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Emerald_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Emerald_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Emerald_270.jpg";
+            }
+        }
+        else if (ID == 10)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Knight_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Knight_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Knight_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Knight_270.jpg";
+            }
+        }
+        else if (ID == 11)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Book_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Book_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Book_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Book_270.jpg";
+            }
+        }
+        else if (ID == 12)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Crown_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Crown_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Crown_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Crown_270.jpg";
+            }
+        }
+        else if (ID == 13)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Chest_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Chest_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Chest_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Chest_270.jpg";
+            }
+        }
+        else if (ID == 14)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Candleabra_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Candleabra_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Candleabra_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Candleabra_270.jpg";
+            }
+        }
+        else if (ID == 15)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Map_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Map_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Map_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Map_270.jpg";
+            }
+        }
+        else if (ID == 16)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Ring_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Ring_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Ring_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Ring_270.jpg";
+            }
+        }
+        else if (ID == 17)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_L_Spider_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_L_Spider_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_L_Spider_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_L_Spider_270.jpg";
+            }
+        }
+        else if (ID == 18)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_L_Mouse_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_L_Mouse_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_L_Mouse_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_L_Mouse_270.jpg";
+            }
+        }
+        else if (ID == 19)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_L_Moth_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_L_Moth_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_L_Moth_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_L_Moth_270.jpg";
+            }
+        }
+        else if (ID == 20)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_L_Beetle_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_L_Beetle_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_L_Beetle_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_L_Beetle_270.jpg";
+            }
+
+        }
+        else if (ID == 21)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_L_Lizard_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_L_Lizard_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_L_Lizard_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_L_Lizard_270.jpg";
+            }
+        }
+        else if (ID == 22)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_L_Owl_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_L_Owl_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_L_Owl_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_L_Owl_270.jpg";
+            }
+        }
+        else if (ID == 23)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Bat_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Bat_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Bat_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Bat_270.jpg";
+            }
+        }
+        else if (ID == 24)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Troll_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Troll_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Troll_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Troll_270.jpg";
+            }
+        }
+        else if (ID == 25)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Ghost_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Ghost_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Ghost_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Ghost_270.jpg";
+            }
+        }
+        else if (ID == 26)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Genie_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Genie_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Genie_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Genie_270.jpg";
+            }
+        }
+        else if (ID == 27)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Lady_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Lady_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Lady_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Lady_270.jpg";
+            }
+        }
+        else if (ID == 28)
+        {
+            if(rot == 0) {
+                TileFname = "Tile_T_Dragon_0.jpg";
+            }
+            if(rot == 90) {
+                TileFname = "Tile_T_Dragon_90.jpg";
+            }
+            if(rot == 180) {
+                TileFname = "Tile_T_Dragon_180.jpg";
+            }
+            if(rot == 270) {
+                TileFname = "Tile_T_Dragon_270.jpg";
+            }
+        }
+        else if(ID == 0)
+        {
+            if(Type == 'l')
+            {
+                if(rot == 0)
+                    TileFname = "Tile_L_0.jpg";
+                if(rot == 90)
+                    TileFname = "Tile_L_90.jpg";
+                if(rot == 180)
+                    TileFname = "Tile_L_180.jpg";
+                if(rot == 270)
+                    TileFname = "Tile_L_270.jpg";
+            }
+            else
+            {
+                if(rot == 0 || rot == 180)
+                    TileFname = "Tile_I_0.jpg";
+                else
+                    TileFname = "Tile_I_90.jpg";
+            }
+        }
+        return TileFname;
     }
 
     //Function that updates and repaints all the tiles
@@ -432,19 +718,26 @@ public class GraphicsLab {
         GraphicsLab.Tile49.repaint();
         GraphicsLab.TileMain.repaint();
     }
+    public void turnit(int i, int turnit){
 
+        for(i = 0; i < 51; i++){
+            rotateImage(list.get(i), turnit);
+            TileRepaint();
+        }
+    }
     //Function that rotates the Main tile
-    public static void rot(int Degree)
+    public void rot(int Degree)
     {
-        Img50 = rotateImage(Img50,Degree);
+        rotateImage(Img50,Degree);
         GraphicsLab.TileMain.repaint();
     }
 
 //Function that goes through the tiles and assigns them what image they are
     //It will get sent which tiles are being changed and what the file name should be
     //Must be called 50 times before anything else graphically happens
-    void TileGraphics(int x/*, String Fname*/)
+    void TileGraphics(int x, String Fname)
     {
+        TileGrid board = new TileGrid();
         //To get which tile is being called we use an if else statement
         if(x == 1) {
             Tile1 = new JPanel() {
@@ -455,10 +748,13 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img1 = ImageIO.read(new File("Tile_L_Blue(1).jpg"));
+               Img1 = ImageIO.read(new File(Fname));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
         }
             //Tile 2 Panel created and then image is painted in it
         if(x == 2) {
@@ -470,7 +766,8 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img2 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img2 = ImageIO.read(new File(Fname));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -485,7 +782,8 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img3 = ImageIO.read(new File("Tile_L_Beetle (1).jpg"));
+                Img3 = ImageIO.read(new File(Fname));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -500,7 +798,8 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img4 = ImageIO.read(new File("Tile_T_Troll (1).jpg"));
+                Img4 = ImageIO.read(new File(Fname));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -515,7 +814,8 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img5 = ImageIO.read(new File("Tile_T_Emerald (1).jpg"));
+                Img5 = ImageIO.read(new File(Fname));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -530,7 +830,8 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img6 = ImageIO.read(new File("Tile_T_Genie (1).jpg"));
+                Img6 = ImageIO.read(new File(Fname));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -545,7 +846,8 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img7 = ImageIO.read(new File("Tile_L_Green (1).jpg"));
+                Img7 = ImageIO.read(new File(Fname));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -562,7 +864,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img8 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img8 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -577,7 +879,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img9 = ImageIO.read(new File("Tile_L_Rat (1).jpg"));
+                Img9 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -592,7 +894,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img10 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img10 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -607,7 +909,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img11 = ImageIO.read(new File("Tile_T_Abra (1).jpg"));
+                Img11 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -622,7 +924,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img12 = ImageIO.read(new File("Tile_T_Book (1).jpg"));
+                Img12 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -637,7 +939,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img13 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img13 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -652,7 +954,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img14 = ImageIO.read(new File("Tile_T_Chest (1).jpg"));
+                Img14 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -669,7 +971,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img15 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img15 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -684,7 +986,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img16 = ImageIO.read(new File("Tile_T_Keys (1).jpg"));
+                Img16 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -699,7 +1001,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img17 = ImageIO.read(new File("Tile_T_Map (1).jpg"));
+                Img17 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -714,7 +1016,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img18 = ImageIO.read(new File("Tile_T_Ring (1).jpg"));
+                Img18 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -729,7 +1031,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img19 = ImageIO.read(new File("Tile_T_Sword (1).jpg"));
+                Img19 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -744,7 +1046,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img20 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img20 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -759,7 +1061,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img21 = ImageIO.read(new File("Tile_T_Lady (1).jpg"));
+                Img21 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -776,7 +1078,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img22 = ImageIO.read(new File("Tile_T_Crown (1).jpg"));
+                Img22 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -791,7 +1093,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img23 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img23 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -806,7 +1108,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img24 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img24 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -821,7 +1123,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img25 = ImageIO.read(new File("Tile_L_Beetle (1).jpg"));
+                Img25 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -836,7 +1138,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img26 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img26 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -851,7 +1153,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img27 = ImageIO.read(new File("Tile_T_Ghost (1).jpg"));
+                Img27 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -866,7 +1168,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img28 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img28 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -883,7 +1185,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img29 = ImageIO.read(new File("Tile_T_Knight (1).jpg"));
+                Img29 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -898,7 +1200,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img30 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img30 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -913,7 +1215,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img31 = ImageIO.read(new File("Tile_T_Ring (1).jpg"));
+                Img31 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -928,7 +1230,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img32 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img32 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -943,7 +1245,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img33 = ImageIO.read(new File("Tile_L_Spider (1).jpg"));
+                Img33 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -958,7 +1260,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img34 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img34 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -974,7 +1276,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img35 = ImageIO.read(new File("Tile_T_Dragon (1).jpg"));
+                Img35 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -991,7 +1293,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img36 = ImageIO.read(new File("Tile_T_Coins (1).jpg"));
+                Img36 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1006,7 +1308,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img37 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img37 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1021,7 +1323,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img38 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img38 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1036,7 +1338,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img39 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img39 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1051,7 +1353,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img40 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img40 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1066,7 +1368,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img41 = ImageIO.read(new File("Tile_L_Owl (1).jpg"));
+                Img41 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1081,7 +1383,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img42 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img42 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1098,7 +1400,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img43 = ImageIO.read(new File("Tile_L_Yellow (1).jpg"));
+                Img43 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1113,7 +1415,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img44 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img44 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1128,7 +1430,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img45 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img45 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1143,7 +1445,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img46 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img46 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1158,7 +1460,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img47 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img47 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1173,7 +1475,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img48 = ImageIO.read(new File("Tile_I (1).jpg"));
+                Img48 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1188,7 +1490,7 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img49 = ImageIO.read(new File("Tile_L_Red (1).jpg"));
+                Img49 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -1204,11 +1506,18 @@ public class GraphicsLab {
                 }
             };
             try {
-                Img50 = ImageIO.read(new File("Tile_L (1).jpg"));
+                Img50 = ImageIO.read(new File(Fname));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        list.add(0, Img1);list.add(1, Img2);list.add(2, Img3);list.add(3, Img4); list.add(4, Img5); list.add(5, Img6); list.add(6, Img7);
+        list.add(7, Img8); list.add(8, Img9); list.add(9, Img10); list.add(10, Img11); list.add(11, Img12); list.add(12, Img13); list.add(13, Img14);
+        list.add(14, Img15); list.add(15, Img16); list.add(16, Img17); list.add(17, Img18); list.add(18, Img19); list.add(19, Img20); list.add(20, Img21);
+        list.add(21, Img22); list.add(22, Img23); list.add(23, Img24); list.add(24, Img25); list.add(25, Img26); list.add(26, Img27); list.add(27, Img28);
+        list.add(28, Img29); list.add(29, Img30); list.add(30, Img31); list.add(31, Img32);list.add(32, Img33); list.add(33, Img34); list.add(34, Img35);
+        list.add(35, Img36); list.add(36, Img37); list.add(37, Img38); list.add(38, Img39); list.add(39, Img40); list.add(40, Img41); list.add(41, Img42);
+        list.add(42, Img43); list.add(43, Img44); list.add(44, Img45); list.add(45, Img46); list.add(46, Img47); list.add(47, Img48); list.add(48, Img49);
     }
 
     //Function that will assign the images of the arrows
@@ -1216,15 +1525,16 @@ public class GraphicsLab {
 
     public void IndicatorsAdd()
     {
+        final TileGrid board = new TileGrid();
         //Three Arrows per side
-        ImageIcon D = new ImageIcon("ArrowDown.png");
-        ImageIcon R = new ImageIcon("ArrowLeft.png");
-        ImageIcon U = new ImageIcon("Arrow.png");
-        ImageIcon L = new ImageIcon("ArrowRight.png");
-        ImageIcon DB = new ImageIcon("ArrowDownBlack.png");
-        ImageIcon RB = new ImageIcon("ArrowLeftBlack.png");
-        ImageIcon UB = new ImageIcon("ArrowBlack.png");
-        ImageIcon LB = new ImageIcon("ArrowRightBlack.png");
+        final ImageIcon D = new ImageIcon("ArrowDown.png");
+        final ImageIcon R = new ImageIcon("ArrowLeft.png");
+        final ImageIcon U = new ImageIcon("Arrow.png");
+        final ImageIcon L = new ImageIcon("ArrowRight.png");
+        final ImageIcon DB = new ImageIcon("ArrowDownBlack.png");
+        final ImageIcon RB = new ImageIcon("ArrowLeftBlack.png");
+        final ImageIcon UB = new ImageIcon("ArrowBlack.png");
+        final ImageIcon LB = new ImageIcon("ArrowRightBlack.png");
 
         Arrow1Button = new JButton(D);
         Arrow2Button = new JButton(D);
@@ -1292,6 +1602,9 @@ public class GraphicsLab {
         });
         Arrow6Button.addActionListener(new ActionListener() {
             @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
 
         });
         Arrow7Button.addActionListener(new ActionListener() {
@@ -1339,7 +1652,12 @@ public class GraphicsLab {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                board.rotL();
 
+                TileGraphics(50,AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49)));
+                System.out.println(board.getRotation(49));
+                frame.setVisible(false);
+                frame.setVisible(true);
             }
 
             @Override
@@ -1360,12 +1678,18 @@ public class GraphicsLab {
         Arrow2Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileDown(3);
+                TileRepaint();
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                board.rotR();
 
+                TileGraphics(50,AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49)));
+                System.out.println(board.getRotation(49));
+                frame.setVisible(false);
+                frame.setVisible(true);
             }
 
             @Override
@@ -1386,7 +1710,8 @@ public class GraphicsLab {
         Arrow3Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileDown(1);
+                TileRepaint();
             }
 
             @Override
@@ -1412,7 +1737,8 @@ public class GraphicsLab {
         Arrow4Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileRight(1);
+                TileRepaint();
             }
 
             @Override
@@ -1438,7 +1764,8 @@ public class GraphicsLab {
         Arrow5Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileRight(3);
+                TileRepaint();
             }
 
             @Override
@@ -1464,7 +1791,8 @@ public class GraphicsLab {
         Arrow6Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileRight(5);
+                TileRepaint();
             }
 
             @Override
@@ -1490,7 +1818,8 @@ public class GraphicsLab {
         Arrow7Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileUp(1);
+                TileRepaint();
             }
 
             @Override
@@ -1516,7 +1845,8 @@ public class GraphicsLab {
         Arrow8Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileUp(3);
+                TileRepaint();
             }
 
             @Override
@@ -1542,7 +1872,8 @@ public class GraphicsLab {
         Arrow9Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileUp(5);
+                TileRepaint();
             }
 
             @Override
@@ -1568,7 +1899,8 @@ public class GraphicsLab {
         Arrow10Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileLeft(5);
+                TileRepaint();
             }
 
             @Override
@@ -1594,7 +1926,8 @@ public class GraphicsLab {
         Arrow11Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileLeft(3);
+                TileRepaint();
             }
 
             @Override
@@ -1620,7 +1953,8 @@ public class GraphicsLab {
         Arrow12Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.SlideTileLeft(1);
+                TileRepaint();
             }
 
             @Override
@@ -1676,11 +2010,48 @@ public class GraphicsLab {
         } catch (IOException e) {
             e.printStackTrace();
         }
-         playerB.setBounds(200,200,35,50);
-       Player.setBackground(new Color(0,0,0,0));
+        playerB.setBounds(200,200,35,50);
+        Player.setBackground(new Color(0,0,0,0));
         Player.add(playerB);
         playerB.setBackground(new Color(0,0,0,0));
         Player.setVisible(true);
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                Player.setVisible(false);
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                Player.setVisible(true);
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         //Mouse Listener
         Player.addMouseListener(new MouseListener() {
@@ -1701,6 +2072,10 @@ public class GraphicsLab {
                 int xm = (int) b.getX();
                 int ym = (int) b.getY();
                 Player.setBounds(xm-15,ym-15,35,50);
+                if(check)
+                {
+                    Player.setBounds(0,0,35,50);
+                }
             }
 
             @Override
@@ -1713,33 +2088,62 @@ public class GraphicsLab {
 
             }
         });
+        frame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                check = false;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                check = true;
+            }
+        });
     }
 
     
     //Variable to be called for rotating image
     //Will rotate the Main Tile's image the specified degree
-    private static BufferedImage rotateImage(BufferedImage image, double degrees) {
-        //Math to figure out how far to rotate an image
-        double radians = Math.toRadians(degrees);
-        double sin = Math.abs(Math.sin(radians));
-        double cos = Math.abs(Math.cos(radians));
-        //Getting the images length and width
-        int width = image.getWidth();
-        int height = image.getHeight();
-        //Creating new variables for setting the image to the new rotated values
-        int newWidth = (int) Math.floor(width * cos + height * sin);
-        int newHeight = (int) Math.floor(height * cos + width * sin);
+    public BufferedImage rotateImage(BufferedImage bimg, double degrees) {
 
-        //Creating the new image
-        BufferedImage rotated = new BufferedImage(newWidth, newHeight, image.getType());
-        Graphics2D g2d = rotated.createGraphics();
-        //Rotating
-        g2d.translate((newWidth - width) / 2, (newHeight - height) / 2);
-        g2d.rotate(radians, width / 2, height / 2);
-        //Drawing the new image into the panel
-        g2d.drawRenderedImage(image, null);
-        g2d.dispose();
-        //Returning the rotated image
-        return rotated;
+
+        final double rads = Math.toRadians(90);
+        final double sin = Math.abs(Math.sin(rads));
+        final double cos = Math.abs(Math.cos(rads));
+        final int w = (int) Math.floor(bimg.getWidth() * cos + bimg.getHeight() * sin);
+        final int h = (int) Math.floor(bimg.getHeight() * cos + bimg.getWidth() * sin);
+        final BufferedImage rotatedImage = new BufferedImage(w, h, bimg.getType());
+        final AffineTransform at = new AffineTransform();
+        at.translate(w / 2, h / 2);
+        at.rotate(rads,0, 0);
+        at.translate(-bimg.getWidth() / 2, -bimg.getHeight() / 2);
+        final AffineTransformOp rotateOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+        rotateOp.filter(bimg,rotatedImage);
+//        int w = bimg.getWidth();
+//        int h = bimg.getHeight();
+//
+//        BufferedImage rotated = new BufferedImage(w, h, bimg.getType());
+//        Graphics2D graphic = rotated.createGraphics();
+//        graphic.rotate(Math.toRadians(degrees), w/2, h/2);
+//        graphic.drawImage(bimg, null, 0, 0);
+//        graphic.dispose();
+//        return rotated;
+        return rotatedImage;
     }
+
 }

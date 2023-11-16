@@ -19,7 +19,7 @@ public class labyDriver {
         //board.printTiles();
         for(int i = 0; i < 50; i++){
             graphics.TileGraphics(i+1, graphics.AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-            graphics.TileRepaint();
+           // graphics.TileRepaint();
         }
 //        for(int f = 0; f < 50; f++){
 //            BufferedImage image;
@@ -27,9 +27,10 @@ public class labyDriver {
 //            graphics.rotateImage(image, board.getRotation(f));
 //            graphics.TileRepaint();
 //        }
-        graphics.frame.setVisible(false);
-        graphics.frame.setVisible(true);
-        graphics.TileRepaint();
+        graphics.frame.repaint();
+      //  graphics.frame.setVisible(false);
+        //graphics.frame.setVisible(true);
+       // graphics.TileRepaint();
 
 
 

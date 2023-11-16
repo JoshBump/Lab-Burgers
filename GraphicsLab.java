@@ -53,8 +53,10 @@ public class GraphicsLab {
     public static BufferedImage BlueWiz;
 
     //Player layer
-     public static JFrame Player;
-    private static boolean check = false;
+    public static JFrame Player;
+    private static boolean check = false, check2 = false;
+
+    final TileGrid board = new TileGrid();
 
 
     //Variables used to adjust what tile's height and length will be
@@ -85,12 +87,12 @@ public class GraphicsLab {
         //Loop makes it work and not return null / error
         //Delete later
         int i = 1;
-      String Tilename = " ";
+        String Tilename = " ";
         for(i=1;i<=50;i++) {
             TileGraphics(i, "TestFrog.jpg");
         }
 
-     //Code for setting bounds of tiles and inserting them
+        //Code for setting bounds of tiles and inserting them
         //(position X, position Y,Image length X, image length Y)
         //Row 1
         Tile1.setBounds(100, 75, X, Y);
@@ -150,6 +152,45 @@ public class GraphicsLab {
         Tile49.setBounds(550,525,X,Y);
         //Main rotating tile which is off to the side
         TileMain.setBounds(1000, 300,X,Y);
+
+        JButton R = new JButton("R");
+        JButton L = new JButton("L");
+        R.setBounds(1100,300,100,100);
+        L.setBounds(900,300,100,100);
+        R.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board.rotR();
+
+                // TileGraphics(50,AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49)));
+                try {
+                    Img50 = ImageIO.read(new File(AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49))));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                System.out.println(board.getRotation(49));
+                frame.repaint();
+            }
+        });
+        L.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board.rotL();
+
+                //  TileGraphics(50,AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49)));
+                System.out.println(board.getRotation(49));
+                try {
+                    Img50 = ImageIO.read(new File(AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49))));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                frame.repaint();
+            }
+        });
+
+        frame.add(R);
+        frame.add(L);
 
         //Creating and putting the images in the arrows
         //As of 10/16 this is new and needs to be added to the main code
@@ -232,7 +273,7 @@ public class GraphicsLab {
         frame.add(InstructSet1);
         frame.add(InstructSet2);
 //Keeps play layer above board layer
-       frame.setFocusableWindowState(false);
+        frame.setFocusableWindowState(false);
 
         //Setting the frame visible and everything inside of it
         frame.setVisible(true);
@@ -240,7 +281,7 @@ public class GraphicsLab {
         GraphicsPlayerPiece();
     }
 
-//The main function
+    //The main function
     //Creates and runs everything, mostly for figuring out what works and what doesnt
     public static void main(String[] args) throws IOException {
         String W = " ";
@@ -249,17 +290,17 @@ public class GraphicsLab {
         new GraphicsLab(W);
 
         //Rotating an image needs int for degrees
-       //rot(deg);
-       TileRepaint();
+        //rot(deg);
+        TileRepaint();
 
-      // Indicate(10);
+        // Indicate(10);
     }
 
     //Will take the ID and Type from craig's tile class
     //And give it a string which can be used in the Tile Graphics function
     String AssignTile(int ID, char Type, int rot)
     {System.getProperty("user.dir");
-       // rot = board.getRotation();
+        // rot = board.getRotation();
         String TileFname = "";
         if(ID == 1)
         {
@@ -732,7 +773,7 @@ public class GraphicsLab {
         GraphicsLab.TileMain.repaint();
     }
 
-//Function that goes through the tiles and assigns them what image they are
+    //Function that goes through the tiles and assigns them what image they are
     //It will get sent which tiles are being changed and what the file name should be
     //Must be called 50 times before anything else graphically happens
     void TileGraphics(int x, String Fname)
@@ -748,7 +789,7 @@ public class GraphicsLab {
                 }
             };
             try {
-               Img1 = ImageIO.read(new File(Fname));
+                Img1 = ImageIO.read(new File(Fname));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -756,7 +797,7 @@ public class GraphicsLab {
 
 
         }
-            //Tile 2 Panel created and then image is painted in it
+        //Tile 2 Panel created and then image is painted in it
         if(x == 2) {
             Tile2 = new JPanel() {
                 @Override
@@ -804,7 +845,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 5 Panel created and then image is painted in it
+        //Tile 5 Panel created and then image is painted in it
         if(x==5) {
             Tile5 = new JPanel() {
                 @Override
@@ -836,7 +877,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 7 Panel created and then image is painted in it
+        //Tile 7 Panel created and then image is painted in it
         if(x==7) {
             Tile7 = new JPanel() {
                 @Override
@@ -853,8 +894,8 @@ public class GraphicsLab {
             }
         }
 //Row 1 end
-            //Row 2 Start
-            //Tile 8 Panel created and then image is painted in it
+        //Row 2 Start
+        //Tile 8 Panel created and then image is painted in it
         if(x==8) {
             Tile8 = new JPanel() {
                 @Override
@@ -869,7 +910,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 9 Panel created and then image is painted in it
+        //Tile 9 Panel created and then image is painted in it
         if(x==9) {
             Tile9 = new JPanel() {
                 @Override
@@ -884,7 +925,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 10 Panel created and then image is painted in it
+        //Tile 10 Panel created and then image is painted in it
         if(x==10) {
             Tile10 = new JPanel() {
                 @Override
@@ -899,7 +940,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 11 Panel created and then image is painted in it
+        //Tile 11 Panel created and then image is painted in it
         if(x==11) {
             Tile11 = new JPanel() {
                 @Override
@@ -914,7 +955,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 12 Panel created and then image is painted in it
+        //Tile 12 Panel created and then image is painted in it
         if(x==12) {
             Tile12 = new JPanel() {
                 @Override
@@ -929,7 +970,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 13 Panel created and then image is painted in it
+        //Tile 13 Panel created and then image is painted in it
         if(x==13) {
             Tile13 = new JPanel() {
                 @Override
@@ -944,7 +985,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 14 Panel created and then image is painted in it
+        //Tile 14 Panel created and then image is painted in it
         if(x==14) {
             Tile14 = new JPanel() {
                 @Override
@@ -959,9 +1000,9 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Row 2 end
-            //Row 3 Start
-            //Tile 15 Panel created and then image is painted in it
+        //Row 2 end
+        //Row 3 Start
+        //Tile 15 Panel created and then image is painted in it
         if(x==15) {
             Tile15 = new JPanel() {
                 @Override
@@ -976,7 +1017,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 16 Panel created and then image is painted in it
+        //Tile 16 Panel created and then image is painted in it
         if(x==16) {
             Tile16 = new JPanel() {
                 @Override
@@ -991,7 +1032,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 17 Panel created and then image is painted in it
+        //Tile 17 Panel created and then image is painted in it
         if(x==17) {
             Tile17 = new JPanel() {
                 @Override
@@ -1006,7 +1047,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 18 Panel created and then image is painted in it
+        //Tile 18 Panel created and then image is painted in it
         if(x==18) {
             Tile18 = new JPanel() {
                 @Override
@@ -1021,7 +1062,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 19 Panel created and then image is painted in it
+        //Tile 19 Panel created and then image is painted in it
         if(x==19) {
             Tile19 = new JPanel() {
                 @Override
@@ -1036,7 +1077,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 20 Panel created and then image is painted in it
+        //Tile 20 Panel created and then image is painted in it
         if(x==20) {
             Tile20 = new JPanel() {
                 @Override
@@ -1051,7 +1092,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 21 Panel created and then image is painted in it
+        //Tile 21 Panel created and then image is painted in it
         if(x==21) {
             Tile21 = new JPanel() {
                 @Override
@@ -1066,9 +1107,9 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //End of row 3
-            //Row 4 start
-            //Tile 21 Panel created and then image is painted in it
+        //End of row 3
+        //Row 4 start
+        //Tile 21 Panel created and then image is painted in it
         if(x==22) {
             Tile22 = new JPanel() {
                 @Override
@@ -1083,7 +1124,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 23 Panel created and then image is painted in it
+        //Tile 23 Panel created and then image is painted in it
         if(x==23) {
             Tile23 = new JPanel() {
                 @Override
@@ -1098,7 +1139,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 24 Panel created and then image is painted in it
+        //Tile 24 Panel created and then image is painted in it
         if(x==24) {
             Tile24 = new JPanel() {
                 @Override
@@ -1113,7 +1154,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 25 Panel created and then image is painted in it
+        //Tile 25 Panel created and then image is painted in it
         if(x==25) {
             Tile25 = new JPanel() {
                 @Override
@@ -1128,7 +1169,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 26 Panel created and then image is painted in it
+        //Tile 26 Panel created and then image is painted in it
         if(x==26) {
             Tile26 = new JPanel() {
                 @Override
@@ -1143,7 +1184,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 27 Panel created and then image is painted in it
+        //Tile 27 Panel created and then image is painted in it
         if(x==27) {
             Tile27 = new JPanel() {
                 @Override
@@ -1158,7 +1199,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 28 Panel created and then image is painted in it
+        //Tile 28 Panel created and then image is painted in it
         if(x==28) {
             Tile28 = new JPanel() {
                 @Override
@@ -1173,9 +1214,9 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //End of row 4
-            //Start of row 5
-            //Tile 29 Panel created and then image is painted in it
+        //End of row 4
+        //Start of row 5
+        //Tile 29 Panel created and then image is painted in it
         if(x==29) {
             Tile29 = new JPanel() {
                 @Override
@@ -1190,7 +1231,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 30 Panel created and then image is painted in it
+        //Tile 30 Panel created and then image is painted in it
         if(x==30) {
             Tile30 = new JPanel() {
                 @Override
@@ -1205,7 +1246,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 31 Panel created and then image is painted in it
+        //Tile 31 Panel created and then image is painted in it
         if(x==31) {
             Tile31 = new JPanel() {
                 @Override
@@ -1220,7 +1261,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 32 Panel created and then image is painted in it
+        //Tile 32 Panel created and then image is painted in it
         if(x==32) {
             Tile32 = new JPanel() {
                 @Override
@@ -1235,7 +1276,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 33 Panel created and then image is painted in it
+        //Tile 33 Panel created and then image is painted in it
         if(x==33) {
             Tile33 = new JPanel() {
                 @Override
@@ -1250,7 +1291,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 34 Panel created and then image is painted in it
+        //Tile 34 Panel created and then image is painted in it
         if(x==34) {
             Tile34 = new JPanel() {
                 @Override
@@ -1265,7 +1306,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 35 Panel created and then image is painted in it
+        //Tile 35 Panel created and then image is painted in it
         if(x==35)
         {
             Tile35 = new JPanel() {
@@ -1281,9 +1322,9 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //End of row 5
-            //Start of row 6
-            //Tile 36 Panel created and then image is painted in it
+        //End of row 5
+        //Start of row 6
+        //Tile 36 Panel created and then image is painted in it
         if(x==36) {
             Tile36 = new JPanel() {
                 @Override
@@ -1298,7 +1339,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 37 Panel created and then image is painted in it
+        //Tile 37 Panel created and then image is painted in it
         if(x==37) {
             Tile37 = new JPanel() {
                 @Override
@@ -1313,7 +1354,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 38 Panel created and then image is painted in it
+        //Tile 38 Panel created and then image is painted in it
         if(x==38) {
             Tile38 = new JPanel() {
                 @Override
@@ -1328,7 +1369,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 39 Panel created and then image is painted in it
+        //Tile 39 Panel created and then image is painted in it
         if(x==39) {
             Tile39 = new JPanel() {
                 @Override
@@ -1343,7 +1384,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 40 Panel created and then image is painted in it
+        //Tile 40 Panel created and then image is painted in it
         if(x==40) {
             Tile40 = new JPanel() {
                 @Override
@@ -1358,7 +1399,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 35 Panel created and then image is painted in it
+        //Tile 35 Panel created and then image is painted in it
         if(x==41) {
             Tile41 = new JPanel() {
                 @Override
@@ -1373,7 +1414,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 42 Panel created and then image is painted in it
+        //Tile 42 Panel created and then image is painted in it
         if(x==42) {
             Tile42 = new JPanel() {
                 @Override
@@ -1388,8 +1429,8 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //End of row 6
-            //Start of row 7
+        //End of row 6
+        //Start of row 7
 //Tile 43 Panel created and then image is painted in it
         if(x==43) {
             Tile43 = new JPanel() {
@@ -1405,7 +1446,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 44 Panel created and then image is painted in it
+        //Tile 44 Panel created and then image is painted in it
         if(x==44) {
             Tile44 = new JPanel() {
                 @Override
@@ -1420,7 +1461,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 45 Panel created and then image is painted in it
+        //Tile 45 Panel created and then image is painted in it
         if(x==45) {
             Tile45 = new JPanel() {
                 @Override
@@ -1435,7 +1476,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 46 Panel created and then image is painted in it
+        //Tile 46 Panel created and then image is painted in it
         if(x==46) {
             Tile46 = new JPanel() {
                 @Override
@@ -1450,7 +1491,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 47 Panel created and then image is painted in it
+        //Tile 47 Panel created and then image is painted in it
         if(x==47) {
             Tile47 = new JPanel() {
                 @Override
@@ -1465,7 +1506,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 48 Panel created and then image is painted in it
+        //Tile 48 Panel created and then image is painted in it
         if(x==48) {
             Tile48 = new JPanel() {
                 @Override
@@ -1480,7 +1521,7 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //Tile 49 Panel created and then image is painted in it
+        //Tile 49 Panel created and then image is painted in it
         if(x == 49) {
             Tile49 = new JPanel() {
                 @Override
@@ -1495,8 +1536,8 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-            //End of grid tiles
-            //Rotated Tile
+        //End of grid tiles
+        //Rotated Tile
         if(x==50) {
             TileMain = new JPanel() {
                 @Override
@@ -1525,7 +1566,6 @@ public class GraphicsLab {
 
     public void IndicatorsAdd()
     {
-        final TileGrid board = new TileGrid();
         //Three Arrows per side
         final ImageIcon D = new ImageIcon("ArrowDown.png");
         final ImageIcon R = new ImageIcon("ArrowLeft.png");
@@ -1573,74 +1613,134 @@ public class GraphicsLab {
         Arrow1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileDown(1);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow2Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileDown(3);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow3Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileDown(5);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow4Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileLeft(1);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow5Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileLeft(3);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow6Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileLeft(5);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
 
         });
         Arrow7Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileUp(1);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow8Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileUp(3);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow9Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileUp(5);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow10Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileRight(1);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow11Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileRight(3);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         Arrow12Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                board.SlideTileRight(5);
+                for(int i = 0; i < 50; i++){
+                    TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
+                    // graphics.TileRepaint();
+                }
+                frame.repaint();
             }
         });
         //Mouse Listeners now
@@ -1652,12 +1752,7 @@ public class GraphicsLab {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                board.rotL();
 
-                TileGraphics(50,AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49)));
-                System.out.println(board.getRotation(49));
-                frame.setVisible(false);
-                frame.setVisible(true);
             }
 
             @Override
@@ -1667,29 +1762,22 @@ public class GraphicsLab {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-            Arrow1Button.setIcon(DB);
+                Arrow1Button.setIcon(DB);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-            Arrow1Button.setIcon(D);
+                Arrow1Button.setIcon(D);
             }
         });
         Arrow2Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileDown(3);
-                TileRepaint();
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                board.rotR();
 
-                TileGraphics(50,AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49)));
-                System.out.println(board.getRotation(49));
-                frame.setVisible(false);
-                frame.setVisible(true);
             }
 
             @Override
@@ -1710,8 +1798,7 @@ public class GraphicsLab {
         Arrow3Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileDown(1);
-                TileRepaint();
+
             }
 
             @Override
@@ -1737,8 +1824,7 @@ public class GraphicsLab {
         Arrow4Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileRight(1);
-                TileRepaint();
+
             }
 
             @Override
@@ -1764,8 +1850,7 @@ public class GraphicsLab {
         Arrow5Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileRight(3);
-                TileRepaint();
+
             }
 
             @Override
@@ -1791,8 +1876,7 @@ public class GraphicsLab {
         Arrow6Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileRight(5);
-                TileRepaint();
+
             }
 
             @Override
@@ -1818,8 +1902,7 @@ public class GraphicsLab {
         Arrow7Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileUp(1);
-                TileRepaint();
+
             }
 
             @Override
@@ -1845,8 +1928,7 @@ public class GraphicsLab {
         Arrow8Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileUp(3);
-                TileRepaint();
+
             }
 
             @Override
@@ -1872,8 +1954,7 @@ public class GraphicsLab {
         Arrow9Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileUp(5);
-                TileRepaint();
+
             }
 
             @Override
@@ -1899,8 +1980,7 @@ public class GraphicsLab {
         Arrow10Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileLeft(5);
-                TileRepaint();
+
             }
 
             @Override
@@ -1926,8 +2006,7 @@ public class GraphicsLab {
         Arrow11Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileLeft(3);
-                TileRepaint();
+
             }
 
             @Override
@@ -1953,8 +2032,7 @@ public class GraphicsLab {
         Arrow12Button.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.SlideTileLeft(1);
-                TileRepaint();
+
             }
 
             @Override
@@ -2072,7 +2150,7 @@ public class GraphicsLab {
                 int xm = (int) b.getX();
                 int ym = (int) b.getY();
                 Player.setBounds(xm-15,ym-15,35,50);
-                if(check)
+                if(check && check2)
                 {
                     Player.setBounds(0,0,35,50);
                 }
@@ -2080,12 +2158,12 @@ public class GraphicsLab {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-
+                check2 = false;
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-
+                check2 = true;
             }
         });
         frame.addMouseListener(new MouseListener() {
@@ -2116,7 +2194,7 @@ public class GraphicsLab {
         });
     }
 
-    
+
     //Variable to be called for rotating image
     //Will rotate the Main Tile's image the specified degree
     public BufferedImage rotateImage(BufferedImage bimg, double degrees) {

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 
-public class GraphicsLab {
+public class GraphicsLab extends labyDriver {
     //Main frame the player can see and holds everything
     public static JFrame frame;
 
@@ -45,9 +45,7 @@ public class GraphicsLab {
     public static JButton Arrow7Button, Arrow8Button, Arrow9Button;
     public static JButton Arrow10Button, Arrow11Button, Arrow12Button;
 
-    public static ArrayList<BufferedImage> list = new ArrayList<BufferedImage>();
-
-    //Player
+     //Player
     public static JPanel playerB;
 
     public static BufferedImage BlueWiz;
@@ -56,21 +54,16 @@ public class GraphicsLab {
     public static JFrame Player;
     private static boolean check = false, check2 = false;
 
-    final TileGrid board = new TileGrid();
 
 
     //Variables used to adjust what tile's height and length will be
     private int X=75,Y=75;
 
     //Will make the text multi-lined using HTML
-    public static String convertToMultiline(String orig)
-    {
-        return "<html>" + orig.replaceAll("\n", "<br>");
-    }
 
     //Class called GraphicsLab which will contain all the important code
     //and logic for displaying images,tiles, and text
-    public GraphicsLab(String s) {
+    public GraphicsLab() {
         //Code involving the frame
         //Creating the frame with a title that will hold everything
         frame = new JFrame("Labyrinth");
@@ -87,7 +80,6 @@ public class GraphicsLab {
         //Loop makes it work and not return null / error
         //Delete later
         int i = 1;
-        String Tilename = " ";
         for(i=1;i<=50;i++) {
             TileGraphics(i, "TestFrog.jpg");
         }
@@ -256,22 +248,6 @@ public class GraphicsLab {
         //Adding the rotating tile to the screen
         frame.add(TileMain);
 
-        //Creating Instruction Text
-        JLabel InstructSet1 = new JLabel("Text1");
-        JLabel InstructSet2 = new JLabel("Text1");
-
-        //Instruction text, setting what it says and allows it to wrap by using HTML
-        InstructSet1.setText(convertToMultiline("To rotate the image\nuse the left or right arrow key"));
-        InstructSet2.setText("");
-
-        //Setting bounds of the text on screen
-        InstructSet1.setBounds(1000,225,200,30);
-        InstructSet2.setBounds(1000,400,400,30);
-
-
-        //Adding text to frame
-        frame.add(InstructSet1);
-        frame.add(InstructSet2);
 //Keeps play layer above board layer
         frame.setFocusableWindowState(false);
 
@@ -283,15 +259,14 @@ public class GraphicsLab {
 
     //The main function
     //Creates and runs everything, mostly for figuring out what works and what doesnt
-    public static void main(String[] args) throws IOException {
-        String W = " ";
-        int deg = 270;
+    public static void main(String[] args) {
+
         //Graphics need a string which has the image name
-        new GraphicsLab(W);
+        new GraphicsLab();
 
         //Rotating an image needs int for degrees
         //rot(deg);
-        TileRepaint();
+
 
         // Indicate(10);
     }
@@ -703,82 +678,12 @@ public class GraphicsLab {
         return TileFname;
     }
 
-    //Function that updates and repaints all the tiles
-    //Makes the board display correctly
-    public static void TileRepaint()
-    {
-        //Repainting all the tiles and updating them
-        GraphicsLab.Tile1.repaint();
-        GraphicsLab.Tile2.repaint();
-        GraphicsLab.Tile3.repaint();
-        GraphicsLab.Tile4.repaint();
-        GraphicsLab.Tile5.repaint();
-        GraphicsLab.Tile6.repaint();
-        GraphicsLab.Tile7.repaint();
-        GraphicsLab.Tile8.repaint();
-        GraphicsLab.Tile9.repaint();
-        GraphicsLab.Tile10.repaint();
-        GraphicsLab.Tile11.repaint();
-        GraphicsLab.Tile12.repaint();
-        GraphicsLab.Tile13.repaint();
-        GraphicsLab.Tile14.repaint();
-        GraphicsLab.Tile15.repaint();
-        GraphicsLab.Tile16.repaint();
-        GraphicsLab.Tile17.repaint();
-        GraphicsLab.Tile18.repaint();
-        GraphicsLab.Tile19.repaint();
-        GraphicsLab.Tile20.repaint();
-        GraphicsLab.Tile21.repaint();
-        GraphicsLab.Tile22.repaint();
-        GraphicsLab.Tile23.repaint();
-        GraphicsLab.Tile24.repaint();
-        GraphicsLab.Tile25.repaint();
-        GraphicsLab.Tile26.repaint();
-        GraphicsLab.Tile27.repaint();
-        GraphicsLab.Tile28.repaint();
-        GraphicsLab.Tile29.repaint();
-        GraphicsLab.Tile30.repaint();
-        GraphicsLab.Tile31.repaint();
-        GraphicsLab.Tile32.repaint();
-        GraphicsLab.Tile33.repaint();
-        GraphicsLab.Tile34.repaint();
-        GraphicsLab.Tile35.repaint();
-        GraphicsLab.Tile36.repaint();
-        GraphicsLab.Tile37.repaint();
-        GraphicsLab.Tile38.repaint();
-        GraphicsLab.Tile39.repaint();
-        GraphicsLab.Tile40.repaint();
-        GraphicsLab.Tile41.repaint();
-        GraphicsLab.Tile42.repaint();
-        GraphicsLab.Tile43.repaint();
-        GraphicsLab.Tile44.repaint();
-        GraphicsLab.Tile45.repaint();
-        GraphicsLab.Tile46.repaint();
-        GraphicsLab.Tile47.repaint();
-        GraphicsLab.Tile48.repaint();
-        GraphicsLab.Tile49.repaint();
-        GraphicsLab.TileMain.repaint();
-    }
-    public void turnit(int i, int turnit){
-
-        for(i = 0; i < 51; i++){
-            rotateImage(list.get(i), turnit);
-            TileRepaint();
-        }
-    }
-    //Function that rotates the Main tile
-    public void rot(int Degree)
-    {
-        rotateImage(Img50,Degree);
-        GraphicsLab.TileMain.repaint();
-    }
-
     //Function that goes through the tiles and assigns them what image they are
     //It will get sent which tiles are being changed and what the file name should be
     //Must be called 50 times before anything else graphically happens
     void TileGraphics(int x, String Fname)
     {
-        TileGrid board = new TileGrid();
+
         //To get which tile is being called we use an if else statement
         if(x == 1) {
             Tile1 = new JPanel() {
@@ -1552,13 +1457,13 @@ public class GraphicsLab {
                 e.printStackTrace();
             }
         }
-        list.add(0, Img1);list.add(1, Img2);list.add(2, Img3);list.add(3, Img4); list.add(4, Img5); list.add(5, Img6); list.add(6, Img7);
-        list.add(7, Img8); list.add(8, Img9); list.add(9, Img10); list.add(10, Img11); list.add(11, Img12); list.add(12, Img13); list.add(13, Img14);
-        list.add(14, Img15); list.add(15, Img16); list.add(16, Img17); list.add(17, Img18); list.add(18, Img19); list.add(19, Img20); list.add(20, Img21);
-        list.add(21, Img22); list.add(22, Img23); list.add(23, Img24); list.add(24, Img25); list.add(25, Img26); list.add(26, Img27); list.add(27, Img28);
-        list.add(28, Img29); list.add(29, Img30); list.add(30, Img31); list.add(31, Img32);list.add(32, Img33); list.add(33, Img34); list.add(34, Img35);
-        list.add(35, Img36); list.add(36, Img37); list.add(37, Img38); list.add(38, Img39); list.add(39, Img40); list.add(40, Img41); list.add(41, Img42);
-        list.add(42, Img43); list.add(43, Img44); list.add(44, Img45); list.add(45, Img46); list.add(46, Img47); list.add(47, Img48); list.add(48, Img49);
+    //    list.add(0, Img1);list.add(1, Img2);list.add(2, Img3);list.add(3, Img4); list.add(4, Img5); list.add(5, Img6); list.add(6, Img7);
+      //  list.add(7, Img8); list.add(8, Img9); list.add(9, Img10); list.add(10, Img11); list.add(11, Img12); list.add(12, Img13); list.add(13, Img14);
+       // list.add(14, Img15); list.add(15, Img16); list.add(16, Img17); list.add(17, Img18); list.add(18, Img19); list.add(19, Img20); list.add(20, Img21);
+        //list.add(21, Img22); list.add(22, Img23); list.add(23, Img24); list.add(24, Img25); list.add(25, Img26); list.add(26, Img27); list.add(27, Img28);
+        //list.add(28, Img29); list.add(29, Img30); list.add(30, Img31); list.add(31, Img32);list.add(32, Img33); list.add(33, Img34); list.add(34, Img35);
+        //list.add(35, Img36); list.add(36, Img37); list.add(37, Img38); list.add(38, Img39); list.add(39, Img40); list.add(40, Img41); list.add(41, Img42);
+        //list.add(42, Img43); list.add(43, Img44); list.add(44, Img45); list.add(45, Img46); list.add(46, Img47); list.add(47, Img48); list.add(48, Img49);
     }
 
     //Function that will assign the images of the arrows
@@ -1567,14 +1472,14 @@ public class GraphicsLab {
     public void IndicatorsAdd()
     {
         //Three Arrows per side
-        final ImageIcon D = new ImageIcon("ArrowDown.png");
-        final ImageIcon R = new ImageIcon("ArrowLeft.png");
-        final ImageIcon U = new ImageIcon("Arrow.png");
-        final ImageIcon L = new ImageIcon("ArrowRight.png");
-        final ImageIcon DB = new ImageIcon("ArrowDownBlack.png");
-        final ImageIcon RB = new ImageIcon("ArrowLeftBlack.png");
-        final ImageIcon UB = new ImageIcon("ArrowBlack.png");
-        final ImageIcon LB = new ImageIcon("ArrowRightBlack.png");
+         ImageIcon D = new ImageIcon("ArrowDown.png");
+         ImageIcon R = new ImageIcon("ArrowLeft.png");
+         ImageIcon U = new ImageIcon("Arrow.png");
+         ImageIcon L = new ImageIcon("ArrowRight.png");
+         ImageIcon DB = new ImageIcon("ArrowDownBlack.png");
+         ImageIcon RB = new ImageIcon("ArrowLeftBlack.png");
+         ImageIcon UB = new ImageIcon("ArrowBlack.png");
+         ImageIcon LB = new ImageIcon("ArrowRightBlack.png");
 
         Arrow1Button = new JButton(D);
         Arrow2Button = new JButton(D);
@@ -1609,14 +1514,13 @@ public class GraphicsLab {
         Arrow11Button.setBounds(0,300,X,Y);
         Arrow12Button.setBounds(0,450,X,Y);
         //Adding action listeners
-        //FILL WITH INPUTS AND ACTIONS THAT SHIFT TILES
+
         Arrow1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 board.SlideTileDown(1);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
                 }
                 frame.repaint();
             }
@@ -1627,7 +1531,6 @@ public class GraphicsLab {
                 board.SlideTileDown(3);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
                 }
                 frame.repaint();
             }
@@ -1638,7 +1541,6 @@ public class GraphicsLab {
                 board.SlideTileDown(5);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
                 }
                 frame.repaint();
             }
@@ -1649,7 +1551,6 @@ public class GraphicsLab {
                 board.SlideTileLeft(1);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
                 }
                 frame.repaint();
             }
@@ -1660,7 +1561,6 @@ public class GraphicsLab {
                 board.SlideTileLeft(3);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
                 }
                 frame.repaint();
             }
@@ -1671,7 +1571,7 @@ public class GraphicsLab {
                 board.SlideTileLeft(5);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
+
                 }
                 frame.repaint();
             }
@@ -1683,7 +1583,7 @@ public class GraphicsLab {
                 board.SlideTileUp(1);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
+
                 }
                 frame.repaint();
             }
@@ -1694,7 +1594,7 @@ public class GraphicsLab {
                 board.SlideTileUp(3);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
+
                 }
                 frame.repaint();
             }
@@ -1705,7 +1605,7 @@ public class GraphicsLab {
                 board.SlideTileUp(5);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
+
                 }
                 frame.repaint();
             }
@@ -1716,7 +1616,7 @@ public class GraphicsLab {
                 board.SlideTileRight(1);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
+
                 }
                 frame.repaint();
             }
@@ -1727,7 +1627,7 @@ public class GraphicsLab {
                 board.SlideTileRight(3);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
+
                 }
                 frame.repaint();
             }
@@ -1738,7 +1638,7 @@ public class GraphicsLab {
                 board.SlideTileRight(5);
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
-                    // graphics.TileRepaint();
+
                 }
                 frame.repaint();
             }
@@ -2192,36 +2092,6 @@ public class GraphicsLab {
                 check = true;
             }
         });
-    }
-
-
-    //Variable to be called for rotating image
-    //Will rotate the Main Tile's image the specified degree
-    public BufferedImage rotateImage(BufferedImage bimg, double degrees) {
-
-
-        final double rads = Math.toRadians(90);
-        final double sin = Math.abs(Math.sin(rads));
-        final double cos = Math.abs(Math.cos(rads));
-        final int w = (int) Math.floor(bimg.getWidth() * cos + bimg.getHeight() * sin);
-        final int h = (int) Math.floor(bimg.getHeight() * cos + bimg.getWidth() * sin);
-        final BufferedImage rotatedImage = new BufferedImage(w, h, bimg.getType());
-        final AffineTransform at = new AffineTransform();
-        at.translate(w / 2, h / 2);
-        at.rotate(rads,0, 0);
-        at.translate(-bimg.getWidth() / 2, -bimg.getHeight() / 2);
-        final AffineTransformOp rotateOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-        rotateOp.filter(bimg,rotatedImage);
-//        int w = bimg.getWidth();
-//        int h = bimg.getHeight();
-//
-//        BufferedImage rotated = new BufferedImage(w, h, bimg.getType());
-//        Graphics2D graphic = rotated.createGraphics();
-//        graphic.rotate(Math.toRadians(degrees), w/2, h/2);
-//        graphic.drawImage(bimg, null, 0, 0);
-//        graphic.dispose();
-//        return rotated;
-        return rotatedImage;
     }
 
 }

@@ -12,11 +12,30 @@ public class Cards {
     Player yellow = new Player(3,deck);
     Player green = new Player(4,deck);
 
+
+    *on board slide*
+    board.SlideTileDown(1);     //slides tiles in specified collumn down one, inserting spare tile at top of board and moving tile at bottom of board to spare tile position
+    red.SlideDown(1);           //checks if player should slide, slides player if so, wraps player around if player falls off board
+    blue.SlideDown(1);
+    yellow.SlideDown(1);
+    green.SlideDown(1);
+
+
     *on turn end*
+    int pX, pY;
+    pX = (mouseX - boardOffsetX) / tileWidth;
+    if(pX>6) pX=6;
+    if(pX<0) pX=0;
+    pY = (mouseY - boardOffsetY) / tileWidth;
+    if(pY>6) pY=6;
+    if(pY<0) pY=0;
+    player.setXY(pX, pY);
     int winner;
-    winner = player.checkTreassure(board.getTreasure(player.getpos()))
+    winner = player.checkTreassure(board.getTreasure(pX, pY));
     if(winner == 0)
         //win game
+    else
+        //print "Next target treasure is " (decode winner)
     */
 
     //Cards initializer

@@ -31,7 +31,7 @@ public class Cards {
     if(pY<0) pY=0;
     player.setXY(pX, pY);
     int winner;
-    winner = player.checkTreassure(board.getTreasure(pX, pY));
+    winner = player.checkTreasure(board.getTreasure(pX, pY));          //alternative syntax: winner = player.checkTreasure(board);
     if(winner == 0)
         //win game
     else

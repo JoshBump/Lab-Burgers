@@ -34,6 +34,17 @@ public class Player {
         return Treasure[index];
     }
 
+    public int checkTreasure(TileGrid board){
+        int tile = board.getTreasure(X, Y);
+        if(tile == Treasure[index]){
+            if(Treasure[index] == ID){
+                return 0;
+            }
+            index++;
+        }
+        return Treasure[index];
+    }
+
     //player slide functions
     //recieves row or column being slid
     //checks if player will be slid and slides them 1 tile in appropriate direction

@@ -46,20 +46,16 @@ public class GraphicsLab extends labyDriver {
     public static JButton Arrow10Button, Arrow11Button, Arrow12Button;
 
      //Player
-    public static JPanel playerB;
+    public static JPanel playerB, PlayerY, PlayerG, PlayerR;
 
-    public static BufferedImage BlueWiz;
+    public static BufferedImage BlueWiz, YellowWiz, GreenWiz, RedWiz;
 
     //Player layer
-    public static JFrame Player;
+    public static JFrame Player, Player2, Player3, Player4;
     private static boolean check = false, check2 = false;
-
-
 
     //Variables used to adjust what tile's height and length will be
     private int X=75,Y=75;
-
-    //Will make the text multi-lined using HTML
 
     //Class called GraphicsLab which will contain all the important code
     //and logic for displaying images,tiles, and text
@@ -153,14 +149,11 @@ public class GraphicsLab extends labyDriver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 board.rotR();
-
-                // TileGraphics(50,AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49)));
                 try {
                     Img50 = ImageIO.read(new File(AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49))));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                System.out.println(board.getRotation(49));
                 frame.repaint();
             }
         });
@@ -168,15 +161,11 @@ public class GraphicsLab extends labyDriver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 board.rotL();
-
-                //  TileGraphics(50,AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49)));
-                System.out.println(board.getRotation(49));
                 try {
                     Img50 = ImageIO.read(new File(AssignTile(board.getTreasure(49), board.getType(49), board.getRotation(49))));
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-
                 frame.repaint();
             }
         });
@@ -253,22 +242,15 @@ public class GraphicsLab extends labyDriver {
 
         //Setting the frame visible and everything inside of it
         frame.setVisible(true);
-//PlayerPiece call AFTER board frame is consructed and made visible
+
         GraphicsPlayerPiece();
     }
 
     //The main function
     //Creates and runs everything, mostly for figuring out what works and what doesnt
     public static void main(String[] args) {
-
-        //Graphics need a string which has the image name
         new GraphicsLab();
 
-        //Rotating an image needs int for degrees
-        //rot(deg);
-
-
-        // Indicate(10);
     }
 
     //Will take the ID and Type from craig's tile class
@@ -1457,13 +1439,6 @@ public class GraphicsLab extends labyDriver {
                 e.printStackTrace();
             }
         }
-    //    list.add(0, Img1);list.add(1, Img2);list.add(2, Img3);list.add(3, Img4); list.add(4, Img5); list.add(5, Img6); list.add(6, Img7);
-      //  list.add(7, Img8); list.add(8, Img9); list.add(9, Img10); list.add(10, Img11); list.add(11, Img12); list.add(12, Img13); list.add(13, Img14);
-       // list.add(14, Img15); list.add(15, Img16); list.add(16, Img17); list.add(17, Img18); list.add(18, Img19); list.add(19, Img20); list.add(20, Img21);
-        //list.add(21, Img22); list.add(22, Img23); list.add(23, Img24); list.add(24, Img25); list.add(25, Img26); list.add(26, Img27); list.add(27, Img28);
-        //list.add(28, Img29); list.add(29, Img30); list.add(30, Img31); list.add(31, Img32);list.add(32, Img33); list.add(33, Img34); list.add(34, Img35);
-        //list.add(35, Img36); list.add(36, Img37); list.add(37, Img38); list.add(38, Img39); list.add(39, Img40); list.add(40, Img41); list.add(41, Img42);
-        //list.add(42, Img43); list.add(43, Img44); list.add(44, Img45); list.add(45, Img46); list.add(46, Img47); list.add(47, Img48); list.add(48, Img49);
     }
 
     //Function that will assign the images of the arrows
@@ -1975,7 +1950,7 @@ public class GraphicsLab extends labyDriver {
         Player = new JFrame();
         Player.setUndecorated(true);
         Player.setAlwaysOnTop(true);
-        Player.setBounds(200,200,35,50);
+        Player.setBounds(580,110,35,50);
         playerB = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -2050,9 +2025,374 @@ public class GraphicsLab extends labyDriver {
                 int xm = (int) b.getX();
                 int ym = (int) b.getY();
                 Player.setBounds(xm-15,ym-15,35,50);
+                System.out.println(xm+ " " +ym);
+
                 if(check && check2)
                 {
                     Player.setBounds(0,0,35,50);
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                check2 = false;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                check2 = true;
+            }
+        });
+        frame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                check = false;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                check = true;
+            }
+        });
+
+        Player2 = new JFrame();
+        Player2.setUndecorated(true);
+        Player2.setAlwaysOnTop(true);
+        Player2.setBounds(125,560,35,50);
+        PlayerY = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(YellowWiz, 0, 0, null);
+            }
+        };
+        try {
+            YellowWiz = ImageIO.read(new File("YellowpLayer.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PlayerY.setBounds(200,200,35,50);
+        Player2.setBackground(new Color(0,0,0,0));
+        Player2.add(PlayerY);
+        PlayerY.setBackground(new Color(0,0,0,0));
+        Player2.setVisible(true);
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                Player2.setVisible(false);
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                Player2.setVisible(true);
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
+        //Mouse Listener
+        Player2.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int xm = (int) b.getX();
+                int ym = (int) b.getY();
+                Player2.setBounds(xm-15,ym-15,35,50);
+                if(check && check2)
+                {
+                    Player2.setBounds(0,0,35,50);
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                check2 = false;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                check2 = true;
+            }
+        });
+        frame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                check = false;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                check = true;
+            }
+        });
+
+        Player3 = new JFrame();
+        Player3.setUndecorated(true);
+        Player3.setAlwaysOnTop(true);
+        Player3.setBounds(580,560,35,50);
+        PlayerG = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(GreenWiz, 0, 0, null);
+            }
+        };
+        try {
+            GreenWiz = ImageIO.read(new File("GreenPLayer.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PlayerG.setBounds(200,200,35,50);
+        Player3.setBackground(new Color(0,0,0,0));
+        Player3.add(PlayerG);
+        PlayerG.setBackground(new Color(0,0,0,0));
+        Player3.setVisible(true);
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                Player3.setVisible(false);
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                Player3.setVisible(true);
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
+        //Mouse Listener
+        Player3.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int xm = (int) b.getX();
+                int ym = (int) b.getY();
+                Player3.setBounds(xm-15,ym-15,35,50);
+                if(check && check2)
+                {
+                    Player3.setBounds(0,0,35,50);
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                check2 = false;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                check2 = true;
+            }
+        });
+        frame.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                check = false;
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                check = true;
+            }
+        });
+
+        Player4 = new JFrame();
+        Player4.setUndecorated(true);
+        Player4.setAlwaysOnTop(true);
+        Player4.setBounds(125,110,35,50);
+        PlayerR = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(RedWiz, 0, 0, null);
+            }
+        };
+        try {
+            RedWiz = ImageIO.read(new File("RedPLayer.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PlayerR.setBounds(200,200,35,50);
+        Player4.setBackground(new Color(0,0,0,0));
+        Player4.add(PlayerR);
+        PlayerR.setBackground(new Color(0,0,0,0));
+        Player4.setVisible(true);
+
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                Player4.setVisible(false);
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                Player4.setVisible(true);
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
+        //Mouse Listener
+        Player4.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                PointerInfo a = MouseInfo.getPointerInfo();
+                Point b = a.getLocation();
+                int xm = (int) b.getX();
+                int ym = (int) b.getY();
+                Player4.setBounds(xm-15,ym-15,35,50);
+                if(check && check2)
+                {
+                    Player3.setBounds(0,0,35,50);
                 }
             }
 

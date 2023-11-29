@@ -57,6 +57,7 @@ public class GraphicsLab extends labyDriver {
     //Variables used to adjust what tile's height and length will be
     private int X=75,Y=75;
 
+   private static int pX, pY;
     //Class called GraphicsLab which will contain all the important code
     //and logic for displaying images,tiles, and text
     public GraphicsLab() {
@@ -1498,6 +1499,8 @@ public class GraphicsLab extends labyDriver {
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
                 }
                 frame.repaint();
+                if(red.slideDown(1))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         Arrow2Button.addActionListener(new ActionListener() {
@@ -2390,10 +2393,22 @@ public class GraphicsLab extends labyDriver {
                 int xm = (int) b.getX();
                 int ym = (int) b.getY();
                 Player4.setBounds(xm-15,ym-15,35,50);
+
+                pX = (int) (MouseInfo.getPointerInfo().getLocation().getX() - 75) / 75;
+                if(pX>6) pX=6;
+                if(pX<0) pX=0;
+                pY = (int)(MouseInfo.getPointerInfo().getLocation().getY() - 75) / 75;
+                if(pY>6) pY=6;
+                if(pY<0) pY=0;
+                red.setXY(pX, pY);
                 if(check && check2)
                 {
-                    Player3.setBounds(0,0,35,50);
+                    Player3.setBounds(200,200,35,50);
+                    pX = (200 - 75) / 75;
+                    pY = (200 - 75) / 75;
+                    red.setXY(pX, pY);
                 }
+                System.out.println(pX + " " + pY);
             }
 
             @Override

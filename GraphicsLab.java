@@ -1499,6 +1499,12 @@ public class GraphicsLab extends labyDriver {
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
                 }
                 frame.repaint();
+                if(blue.slideDown(1))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideDown(1))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideDown(1))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
                 if(red.slideDown(1))
                 { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
@@ -1510,6 +1516,14 @@ public class GraphicsLab extends labyDriver {
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
                 }
+                if(blue.slideDown(3))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideDown(3))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideDown(3))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideDown(3))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
                 frame.repaint();
             }
         });
@@ -1520,6 +1534,14 @@ public class GraphicsLab extends labyDriver {
                 for(int i = 0; i < 50; i++){
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
                 }
+                if(blue.slideDown(5))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideDown(5))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideDown(5))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideDown(5))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
                 frame.repaint();
             }
         });
@@ -1531,6 +1553,14 @@ public class GraphicsLab extends labyDriver {
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
                 }
                 frame.repaint();
+                if(blue.slideLeft(1))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideLeft(1))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideLeft(1))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideLeft(1))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         Arrow5Button.addActionListener(new ActionListener() {
@@ -1541,6 +1571,14 @@ public class GraphicsLab extends labyDriver {
                     TileGraphics(i+1, AssignTile(board.getTreasure(i), board.getType(i), board.getRotation(i)));
                 }
                 frame.repaint();
+                if(blue.slideLeft(3))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideLeft(3))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideLeft(3))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideLeft(3))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         Arrow6Button.addActionListener(new ActionListener() {
@@ -1552,6 +1590,14 @@ public class GraphicsLab extends labyDriver {
 
                 }
                 frame.repaint();
+                if(blue.slideLeft(5))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideLeft(5))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideLeft(5))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideLeft(5))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
 
         });
@@ -1564,6 +1610,14 @@ public class GraphicsLab extends labyDriver {
 
                 }
                 frame.repaint();
+                if(blue.slideUp(1))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideUp(1))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideUp(1))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideUp(1))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         Arrow8Button.addActionListener(new ActionListener() {
@@ -1575,6 +1629,14 @@ public class GraphicsLab extends labyDriver {
 
                 }
                 frame.repaint();
+                if(blue.slideUp(3))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideUp(3))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideDown(3))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideUp(3))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         Arrow9Button.addActionListener(new ActionListener() {
@@ -1586,6 +1648,14 @@ public class GraphicsLab extends labyDriver {
 
                 }
                 frame.repaint();
+                if(blue.slideUp(5))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideUp(5))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideUp(5))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideUp(5))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         Arrow10Button.addActionListener(new ActionListener() {
@@ -1597,6 +1667,14 @@ public class GraphicsLab extends labyDriver {
 
                 }
                 frame.repaint();
+                if(blue.slideRight(1))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideRight(1))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideRight(1))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideRight(1))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         Arrow11Button.addActionListener(new ActionListener() {
@@ -1608,6 +1686,14 @@ public class GraphicsLab extends labyDriver {
 
                 }
                 frame.repaint();
+                if(blue.slideRight(3))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideRight(3))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideRight(3))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideRight(3))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         Arrow12Button.addActionListener(new ActionListener() {
@@ -1619,6 +1705,14 @@ public class GraphicsLab extends labyDriver {
 
                 }
                 frame.repaint();
+                if(blue.slideRight(5))
+                { Player.setBounds(blue.getX()*75 +125 , blue.getY() * 75 +120, 35, 50);}
+                if(yellow.slideRight(5))
+                { Player2.setBounds(yellow.getX()*75 +125 , yellow.getY() * 75 +120, 35, 50);}
+                if(green.slideRight(5))
+                { Player3.setBounds(green.getX()*75 +125 , green.getY() * 75 +120, 35, 50);}
+                if(red.slideRight(5))
+                { Player4.setBounds(red.getX()*75 +125 , red.getY() * 75 +120, 35, 50);}
             }
         });
         //Mouse Listeners now
@@ -2030,9 +2124,21 @@ public class GraphicsLab extends labyDriver {
                 Player.setBounds(xm-15,ym-15,35,50);
                 System.out.println(xm+ " " +ym);
 
+                pX = (int) (MouseInfo.getPointerInfo().getLocation().getX() - 110) / 75;
+                if(pX>6) pX=6;
+                if(pX<0) pX=0;
+                pY = (int)(MouseInfo.getPointerInfo().getLocation().getY() - 100) / 75;
+                if(pY>6) pY=6;
+                if(pY<0) pY=0;
+                blue.setXY(pX, pY);
+
                 if(check && check2)
                 {
-                    Player.setBounds(0,0,35,50);
+                    Player.setBounds(580,110,35,50);
+                    pX = 0;
+                    pY = 0;
+                    blue.setXY(pX,pY);
+
                 }
             }
 
@@ -2150,10 +2256,22 @@ public class GraphicsLab extends labyDriver {
                 Point b = a.getLocation();
                 int xm = (int) b.getX();
                 int ym = (int) b.getY();
+
+                pX = (int) (MouseInfo.getPointerInfo().getLocation().getX() - 110) / 75;
+                if(pX>6) pX=6;
+                if(pX<0) pX=0;
+                pY = (int)(MouseInfo.getPointerInfo().getLocation().getY() - 100) / 75;
+                if(pY>6) pY=6;
+                if(pY<0) pY=0;
+                yellow.setXY(pX, pY);
+
                 Player2.setBounds(xm-15,ym-15,35,50);
                 if(check && check2)
                 {
-                    Player2.setBounds(0,0,35,50);
+                    Player2.setBounds(125,560,35,50);
+                    pX = 0;
+                    pY = 0;
+                    yellow.setXY(pX, pY);
                 }
             }
 
@@ -2272,9 +2390,21 @@ public class GraphicsLab extends labyDriver {
                 int xm = (int) b.getX();
                 int ym = (int) b.getY();
                 Player3.setBounds(xm-15,ym-15,35,50);
+
+                pX = (int) (MouseInfo.getPointerInfo().getLocation().getX() - 110) / 75;
+                if(pX>6) pX=6;
+                if(pX<0) pX=0;
+                pY = (int)(MouseInfo.getPointerInfo().getLocation().getY() - 100) / 75;
+                if(pY>6) pY=6;
+                if(pY<0) pY=0;
+                green.setXY(pX, pY);
+
                 if(check && check2)
                 {
-                    Player3.setBounds(0,0,35,50);
+                    Player3.setBounds(580,560,35,50);
+                    pX = 0;
+                    pY = 0;
+                    green.setXY(pX, pY);
                 }
             }
 
@@ -2394,21 +2524,22 @@ public class GraphicsLab extends labyDriver {
                 int ym = (int) b.getY();
                 Player4.setBounds(xm-15,ym-15,35,50);
 
-                pX = (int) (MouseInfo.getPointerInfo().getLocation().getX() - 75) / 75;
+                pX = (int) (MouseInfo.getPointerInfo().getLocation().getX() - 110) / 75;
                 if(pX>6) pX=6;
                 if(pX<0) pX=0;
-                pY = (int)(MouseInfo.getPointerInfo().getLocation().getY() - 75) / 75;
+                pY = (int)(MouseInfo.getPointerInfo().getLocation().getY() - 100) / 75;
                 if(pY>6) pY=6;
                 if(pY<0) pY=0;
                 red.setXY(pX, pY);
                 if(check && check2)
                 {
-                    Player3.setBounds(200,200,35,50);
-                    pX = (200 - 75) / 75;
-                    pY = (200 - 75) / 75;
+                    Player4.setBounds(125,110,35,50);
+
+                    pX = 0;
+                    pY = 0;
                     red.setXY(pX, pY);
+                    System.out.println(pX + " " + pY);
                 }
-                System.out.println(pX + " " + pY);
             }
 
             @Override

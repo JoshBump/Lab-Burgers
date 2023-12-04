@@ -15,10 +15,10 @@ public class Cards {
 
     *on board slide*
     board.SlideTileDown(1);     //slides tiles in specified collumn down one, inserting spare tile at top of board and moving tile at bottom of board to spare tile position
-    red.slideDown(1);           //checks if player should slide, slides player if so, wraps player around if player falls off board
-    blue.slideDown(1);
-    yellow.slideDown(1);
-    green.slideDown(1);
+    red.SlideDown(1);           //checks if player should slide, slides player if so, wraps player around if player falls off board
+    blue.SlideDown(1);
+    yellow.SlideDown(1);
+    green.SlideDown(1);
 
 
     *on turn end*
@@ -45,7 +45,10 @@ public class Cards {
         }
 
         for(int i=0;i<24;i++){
-            cardDeck[i] = cardDeck[rand.nextInt(24)];
+            int t = rand.nextInt(24);
+            int hold = cardDeck[i]; 
+            cardDeck[i] = cardDeck[t];
+            cardDeck[i] = hold;
         }
     }
 

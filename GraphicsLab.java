@@ -52,6 +52,10 @@ public class GraphicsLab extends labyDriver {
 
     //Player layer
     public static JFrame Player, Player2, Player3, Player4;
+
+    public static JPanel T1, T2, T3, T4;
+
+    public static BufferedImage TP1, TP2, TP3, TP4;
     private static boolean check = false, check2 = false;
 
     //Variables used to adjust what tile's height and length will be
@@ -2043,7 +2047,13 @@ public class GraphicsLab extends labyDriver {
     }
 
     //Player Piece
-    public static void GraphicsPlayerPiece(){
+    public void GraphicsPlayerPiece(){
+
+        ChangeP("B");
+        ChangeP("R");
+        ChangeP("Y");
+        ChangeP("G");
+
         Player = new JFrame();
         Player.setUndecorated(true);
         Player.setAlwaysOnTop(true);
@@ -2140,6 +2150,14 @@ public class GraphicsLab extends labyDriver {
                     blue.setXY(pX,pY);
 
                 }
+
+                ChangeP("B");
+                frame.repaint();
+               if(blue.checkTreasure(board.getTreasure(pX, pY)) == 0)
+               {
+                   JOptionPane.showMessageDialog(null, "Blue Player Won!");
+                   System.exit(1);
+               }
             }
 
             @Override
@@ -2273,6 +2291,13 @@ public class GraphicsLab extends labyDriver {
                     pY = 0;
                     yellow.setXY(pX, pY);
                 }
+                ChangeP("Y");
+                frame.repaint();
+                if(yellow.checkTreasure(board.getTreasure(pX, pY)) == 0)
+                {
+                    JOptionPane.showMessageDialog(null, "Yellow Player Won!");
+                    System.exit(1);
+                }
             }
 
             @Override
@@ -2405,6 +2430,13 @@ public class GraphicsLab extends labyDriver {
                     pX = 0;
                     pY = 0;
                     green.setXY(pX, pY);
+                }
+                ChangeP("G");
+                frame.repaint();
+                if(green.checkTreasure(board.getTreasure(pX, pY)) == 0)
+                {
+                    JOptionPane.showMessageDialog(null, "Green Player Won!");
+                    System.exit(1);
                 }
             }
 
@@ -2540,6 +2572,13 @@ public class GraphicsLab extends labyDriver {
                     red.setXY(pX, pY);
                     System.out.println(pX + " " + pY);
                 }
+                ChangeP("R");
+                frame.repaint();
+                if(red.checkTreasure(board.getTreasure(pX, pY)) == 0)
+                {
+                    JOptionPane.showMessageDialog(null, "Red Player Won!");
+                    System.exit(1);
+                }
             }
 
             @Override
@@ -2580,4 +2619,115 @@ public class GraphicsLab extends labyDriver {
         });
     }
 
+    public void ChangeP(String Piece) {
+        if (Piece == "B") {
+            int tile = blue.checkTreasure(board.getTreasure(pX, pY));
+            char temp = ' ';
+            if (tile != 0) {
+                temp = 'T';
+            } else {
+                temp = 'L';
+            }
+            T1 = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(TP1, 0, 0, null);
+                }
+            };
+            try {
+                TP1 = ImageIO.read(new File(AssignTile(tile, temp, 0)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            T1.setBounds(900, 10, 75, 75);
+            frame.add(T1);
+            JLabel label1 = new JLabel("Test");
+            label1.setText("Player Blue");
+            label1.setBounds(900,70,100,60);
+            frame.add(label1);
+        }
+        if (Piece == "R") {
+            int tile = red.checkTreasure(board.getTreasure(pX, pY));
+            char temp = ' ';
+            if (tile != 0) {
+                temp = 'T';
+            } else {
+                temp = 'L';
+            }
+            T2 = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(TP2, 0, 0, null);
+                }
+            };
+            try {
+                TP2 = ImageIO.read(new File(AssignTile(tile, temp, 0)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            T2.setBounds(1000, 10, 75, 75);
+            frame.add(T2);
+            JLabel label1 = new JLabel("Test");
+            label1.setText("Player Red");
+            label1.setBounds(1000,70,100,60);
+            frame.add(label1);
+        }
+        if (Piece == "G") {
+            int tile = green.checkTreasure(board.getTreasure(pX, pY));
+            char temp = ' ';
+            if (tile != 0) {
+                temp = 'T';
+            } else {
+                temp = 'L';
+            }
+            T3 = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(TP3, 0, 0, null);
+                }
+            };
+            try {
+                TP3 = ImageIO.read(new File(AssignTile(tile, temp, 0)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            T3.setBounds(900, 150, 75, 75);
+            frame.add(T3);
+            JLabel label1 = new JLabel("Test");
+            label1.setText("Player Green");
+            label1.setBounds(900,200,100,60);
+            frame.add(label1);
+        }
+        if (Piece == "Y") {
+            int tile = yellow.checkTreasure(board.getTreasure(pX, pY));
+            char temp = ' ';
+            if (tile != 0) {
+                temp = 'T';
+            } else {
+                temp = 'L';
+            }
+            T4 = new JPanel() {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(TP4, 0, 0, null);
+                }
+            };
+            try {
+                TP4 = ImageIO.read(new File(AssignTile(tile, temp, 0)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            T4.setBounds(1000, 150, 75, 75);
+            frame.add(T4);
+            JLabel label1 = new JLabel("Test");
+            label1.setText("Player Yellow");
+            label1.setBounds(1000,200,100,60);
+            frame.add(label1);
+
+        }
+    }
 }

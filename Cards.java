@@ -41,14 +41,14 @@ public class Cards {
     //Cards initializer
     public Cards(){
         for(int i = 0; i<24;i++){
-            cardDeck[i] = i+4;
+            cardDeck[i] = i+5;
         }
 
         for(int i=0;i<24;i++){
             int t = rand.nextInt(24);
             int hold = cardDeck[i]; 
             cardDeck[i] = cardDeck[t];
-            cardDeck[i] = hold;
+            cardDeck[t] = hold;
         }
     }
 
